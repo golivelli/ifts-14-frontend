@@ -1,0 +1,74 @@
+.nueva-novedad {
+  padding: 2rem;
+  background: #fdfbf4;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .upload-box {
+      border: 2px dashed #bbb;
+      border-radius: 6px;
+      padding: 1.5rem;
+      text-align: center;
+      background: #fff;
+      color: #666;
+
+      input[type="file"] {
+        display: block;
+        margin: 0 auto 0.5rem;
+      }
+    }
+  }
+
+  .actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+
+    .btn-outline {
+      border: 1px solid #e37a00;
+      background: transparent;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #e37a00;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+}

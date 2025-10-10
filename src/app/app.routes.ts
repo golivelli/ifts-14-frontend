@@ -5,6 +5,7 @@ import { WebLayoutComponent } from './layout/web-layout/web-layout';
 import { HomeComponent } from './pages/home/home';
 import { InstitutoComponent } from './pages/instituto/instituto';
 import { TecnicaturasComponent } from './pages/tecnicaturas/tecnicaturas';
+import { PanelComponent } from './pages/panel/panel';
 import { EstudianteComponent } from './pages/estudiantes/estudiantes';
 
 import { AdminLayoutComponent } from './layout/panel-layout/panel-layout';
@@ -20,16 +21,17 @@ export const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'instituto', component: InstitutoComponent },
       { path: 'tecnicaturas', component: TecnicaturasComponent },
-      { path: 'estudiantes', component: EstudianteComponent }
-    ]
-  },
-  {
-    path: 'panel',
-    component: AdminLayoutComponent, // 👈 PANEL IFTS
-    children: [
-      { path: 'novedad', component: NovedadComponent },
-      { path: 'novedades', component: NovedadesComponent },
-      { path: 'borradores', component: BorradorComponent }
+      { path: 'estudiantes', component: EstudianteComponent },
+      { path: 'panel', component: PanelComponent}
     ]
   }
+  // {
+  //   path: 'panel',
+  //   component: AdminLayoutComponent, // 👈 PANEL IFTS
+  //   children: [
+  //     { path: 'novedad', component: NovedadComponent },
+  //     { path: 'novedades', component: NovedadesComponent },
+  //     { path: 'borradores', component: BorradorComponent }
+  //   ]
+  // }
 ];
