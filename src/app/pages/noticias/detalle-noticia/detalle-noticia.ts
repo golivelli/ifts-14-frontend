@@ -15,7 +15,7 @@ export class DetalleNoticiaComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private noticiasService: NoticiasService
+    public noticiasService: NoticiasService
   ) { }
 
   ngOnInit(): void {
@@ -36,14 +36,6 @@ export class DetalleNoticiaComponent implements OnInit {
         console.error('Error al cargar noticia:', error);
         this.loading = false;
       }
-    });
-  }
-
-  formatearFecha(fecha: Date): string {
-    return new Date(fecha).toLocaleDateString('es-AR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
     });
   }
 }

@@ -14,7 +14,7 @@ export class ListaNoticiasComponent implements OnInit {
   filtroTipo: string = 'todas';
   loading = true;
 
-  constructor(private noticiasService: NoticiasService) { }
+  constructor(public noticiasService: NoticiasService) { }
 
   ngOnInit(): void {
     this.cargarNoticias();
@@ -43,13 +43,5 @@ export class ListaNoticiasComponent implements OnInit {
       return this.noticias;
     }
     return this.noticias.filter(n => n.tipo === this.filtroTipo);
-  }
-
-  formatearFecha(fecha: Date): string {
-    return new Date(fecha).toLocaleDateString('es-AR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
   }
 }

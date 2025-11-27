@@ -12,7 +12,7 @@ import { NoticiasService, Noticia } from '../../services/noticias';
 export class InicioComponent implements OnInit {
   noticiasRecientes: Noticia[] = [];
 
-  constructor(private noticiasService: NoticiasService) { }
+  constructor(public noticiasService: NoticiasService) { }
 
   ngOnInit(): void {
     this.noticiasService.getNoticias().subscribe({
@@ -21,14 +21,6 @@ export class InicioComponent implements OnInit {
           .filter(n => n.status === 'publicado')
           .slice(0, 3);
       }
-    });
-  }
-
-  formatearFecha(fecha: Date): string {
-    return new Date(fecha).toLocaleDateString('es-AR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
     });
   }
 }
