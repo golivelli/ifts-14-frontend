@@ -9,7 +9,7 @@
         <!-- Loading -->
         @if (loading) {
         <div class="text-center py-12">
-            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
             <p class="mt-4 text-gray-600">Cargando noticias...</p>
         </div>
         }
@@ -22,10 +22,10 @@
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="px-3 py-1 rounded-full text-xs font-semibold"
-                            [class.bg-blue-100]="noticia.tipo === 'novedad'"
-                            [class.text-blue-800]="noticia.tipo === 'novedad'"
-                            [class.bg-green-100]="noticia.tipo === 'noticia'"
-                            [class.text-green-800]="noticia.tipo === 'noticia'">
+                            [class.bg-primary-100]="noticia.tipo === 'novedad'"
+                            [class.text-primary-800]="noticia.tipo === 'novedad'"
+                            [class.bg-accent-100]="noticia.tipo === 'noticia'"
+                            [class.text-accent-800]="noticia.tipo === 'noticia'">
                             {{ noticia.tipo | titlecase }}
                         </span>
                         <span class="text-sm text-gray-500">{{ noticiasService.formatearFecha(noticia.fecha) }}</span>
@@ -33,7 +33,7 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3">{{ noticia.titulo }}</h3>
                     <p class="text-gray-600 mb-4 line-clamp-3">{{ noticia.descripcion }}</p>
                     <a [routerLink]="['/noticias', noticia.id]"
-                        class="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold">
+                        class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold">
                         Leer más
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>

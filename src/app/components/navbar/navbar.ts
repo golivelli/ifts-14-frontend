@@ -9,13 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.css'
 })
 export class NavbarComponent {
-  isMobileMenuOpen = false;
+  menuOpen = false;
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
-
-  closeMobileMenu() {
-    this.isMobileMenuOpen = false;
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }

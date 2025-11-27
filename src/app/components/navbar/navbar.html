@@ -1,59 +1,76 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-slate-800/95 backdrop-blur-sm shadow-md">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a routerLink="/" class="text-xl font-bold text-white hover:text-blue-300 transition-colors">IFTS N° 14</a>
+<nav class="bg-primary-800 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-accent-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">14</span>
+                </div>
+                <span class="text-white font-heading font-bold text-xl">IFTS N°14</span>
+            </div>
 
-        <!-- Mobile menu button -->
-        <button class="md:hidden text-white" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-1">
+                <a routerLink="/inicio" routerLinkActive="bg-primary-700"
+                    class="text-white hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors font-medium">
+                    Inicio
+                </a>
+                <a routerLink="/carreras" routerLinkActive="bg-primary-700"
+                    class="text-white hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors font-medium">
+                    Carreras
+                </a>
+                <a routerLink="/noticias" routerLinkActive="bg-primary-700"
+                    class="text-white hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors font-medium">
+                    Noticias
+                </a>
+                <a href="#contacto"
+                    class="text-white hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors font-medium">
+                    Contacto
+                </a>
+                <a href="https://campus.ifts14.edu.ar" target="_blank"
+                    class="ml-4 bg-accent-500 hover:bg-accent-600 text-white px-5 py-2 rounded-lg transition-colors font-semibold">
+                    Campus Virtual
+                </a>
+            </div>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-6">
-            <a routerLink="/" routerLinkActive="text-blue-400" [routerLinkActiveOptions]="{exact: true}"
-                class="text-white hover:text-blue-300 transition-colors">Inicio</a>
-            <a routerLink="/institucional" routerLinkActive="text-blue-400"
-                class="text-white hover:text-blue-300 transition-colors">Instituto</a>
-            <a routerLink="/carreras" routerLinkActive="text-blue-400"
-                class="text-white hover:text-blue-300 transition-colors">
-                Tecnicaturas
+            <!-- Mobile Menu Button -->
+            <button (click)="toggleMenu()"
+                class="md:hidden text-white p-2 rounded-lg hover:bg-primary-700 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    @if (!menuOpen) {
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                    } @else {
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    }
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        @if (menuOpen) {
+        <div class="md:hidden pb-4 space-y-2">
+            <a routerLink="/inicio" (click)="toggleMenu()" routerLinkActive="bg-primary-700"
+                class="block text-white hover:bg-primary-700 px-4 py-3 rounded-lg transition-colors font-medium">
+                Inicio
             </a>
-            <a routerLink="/estudiantes" routerLinkActive="text-blue-400"
-                class="text-white hover:text-blue-300 transition-colors">Estudiantes</a>
-            <a routerLink="/noticias" routerLinkActive="text-blue-400"
-                class="text-white hover:text-blue-300 transition-colors">Noticias</a>
-        </nav>
-
-        <a routerLink="/contacto"
-            class="hidden md:flex bg-blue-500 text-white px-4 py-2 rounded-full items-center space-x-2 hover:bg-blue-600 transition-colors">
-            <span>Contactános</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </a>
+            <a routerLink="/carreras" (click)="toggleMenu()" routerLinkActive="bg-primary-700"
+                class="block text-white hover:bg-primary-700 px-4 py-3 rounded-lg transition-colors font-medium">
+                Carreras
+            </a>
+            <a routerLink="/noticias" (click)="toggleMenu()" routerLinkActive="bg-primary-700"
+                class="block text-white hover:bg-primary-700 px-4 py-3 rounded-lg transition-colors font-medium">
+                Noticias
+            </a>
+            <a href="#contacto" (click)="toggleMenu()"
+                class="block text-white hover:bg-primary-700 px-4 py-3 rounded-lg transition-colors font-medium">
+                Contacto
+            </a>
+            <a href="https://campus.ifts14.edu.ar" target="_blank"
+                class="block bg-accent-500 hover:bg-accent-600 text-white px-4 py-3 rounded-lg transition-colors font-semibold text-center">
+                Campus Virtual
+            </a>
+        </div>
+        }
     </div>
-
-    <!-- Mobile Navigation -->
-    <div class="md:hidden" [class.hidden]="!isMobileMenuOpen">
-        <nav class="bg-slate-800/98 px-4 py-4 space-y-3">
-            <a routerLink="/" routerLinkActive="text-blue-400" [routerLinkActiveOptions]="{exact: true}"
-                class="block text-white hover:text-blue-300 transition-colors py-2"
-                (click)="toggleMobileMenu()">Inicio</a>
-            <a routerLink="/institucional" routerLinkActive="text-blue-400"
-                class="block text-white hover:text-blue-300 transition-colors py-2"
-                (click)="toggleMobileMenu()">Instituto</a>
-            <a routerLink="/carreras" routerLinkActive="text-blue-400"
-                class="block text-white hover:text-blue-300 transition-colors py-2"
-                (click)="toggleMobileMenu()">Tecnicaturas</a>
-            <a routerLink="/estudiantes" routerLinkActive="text-blue-400"
-                class="block text-white hover:text-blue-300 transition-colors py-2"
-                (click)="toggleMobileMenu()">Estudiantes</a>
-            <a routerLink="/noticias" routerLinkActive="text-blue-400"
-                class="block text-white hover:text-blue-300 transition-colors py-2"
-                (click)="toggleMobileMenu()">Noticias</a>
-            <a routerLink="/contacto"
-                class="block bg-blue-500 text-white px-4 py-2 rounded-full text-center hover:bg-blue-600 transition-colors mt-4">Contactános</a>
-        </nav>
-    </div>
-</header>
+</nav>
