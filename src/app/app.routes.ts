@@ -5,7 +5,7 @@ import { WebLayoutComponent } from './layout/web-layout/web-layout';
 import { HomeComponent } from './pages/home/home';
 import { InstitutoComponent } from './pages/instituto/instituto';
 import { TecnicaturasComponent } from './pages/tecnicaturas/tecnicaturas';
-import { EstudianteComponent } from './pages/estudiantes/estudiantes';
+import { EstudiantesComponent } from './pages/estudiantes/estudiantes';
 
 import { AdminLayoutComponent } from './layout/panel-layout/panel-layout';
 import { NovedadComponent } from './pages/novedad/novedad';
@@ -24,7 +24,7 @@ export const routes: Routes = [
       },
       { path: 'instituto', component: InstitutoComponent },
       { path: 'tecnicaturas', component: TecnicaturasComponent },
-      { path: 'estudiantes', component: EstudianteComponent },
+      { path: 'estudiantes', component: EstudiantesComponent },
       {
         path: 'carreras',
         loadComponent: () => import('./pages/carreras/carreras').then(c => c.CarrerasComponent)

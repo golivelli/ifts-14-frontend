@@ -1,1 +1,314 @@
-<p>estudiante works!</p>
+<div class="bg-gray-50 min-h-screen">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Área de Estudiantes</h1>
+            <p class="text-xl text-primary-100">Toda la información y recursos para tu trayectoria académica</p>
+            <div class="w-24 h-1 bg-white mx-auto mt-6"></div>
+        </div>
+    </section>
+
+    <!-- Contenido -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="space-y-6">
+
+                <!-- Horarios -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button (click)="toggleSeccion('horarios')"
+                        class="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors text-left">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center text-primary-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Horarios</h3>
+                        </div>
+                        <span class="text-2xl text-primary-600 font-bold">{{ seccionActiva() === 'horarios' ? '−' : '+'
+                            }}</span>
+                    </button>
+
+                    @if (seccionActiva() === 'horarios') {
+                    <div class="p-6 border-t border-gray-100 bg-gray-50">
+                        <div class="mb-6">
+                            <label for="carreraSelect" class="block text-sm font-medium text-gray-700 mb-2">Seleccioná
+                                tu carrera:</label>
+                            <select id="carreraSelect" (change)="cambiarCarrera($event)"
+                                class="w-full md:w-1/2 p-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">-- Elegí una carrera --</option>
+                                <option value="sistemas">Tecnicatura Superior en Sistemas Embebidos e Internet de las
+                                    Cosas</option>
+                                <option value="eficiencia">Tecnicatura Superior en Eficiencia Energética</option>
+                            </select>
+                        </div>
+
+                        @if (carreraSeleccionada()) {
+                        <div>
+                            <div class="mb-6">
+                                <h4 class="text-lg font-bold text-primary-800">{{ carreraSeleccionada() === 'sistemas' ?
+                                    'Sistemas Embebidos' : 'Eficiencia Energética' }}</h4>
+                                <p class="text-gray-600">2° Cuatrimestre 2025</p>
+                            </div>
+
+                            <div class="space-y-6">
+                                @for (anio of getAniosUnicos(); track anio) {
+                                <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                                    <h5 class="font-bold text-primary-700 mb-3 border-b pb-2">{{ anio }}</h5>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th
+                                                        class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Materia</th>
+                                                    <th
+                                                        class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Día</th>
+                                                    <th
+                                                        class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Horario</th>
+                                                    <th
+                                                        class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Profesor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white divide-y divide-gray-200">
+                                                @for (horario of getHorariosPorAnio(anio); track $index) {
+                                                <tr>
+                                                    <td class="px-3 py-2 text-sm font-medium text-gray-900">{{
+                                                        horario.materia }}</td>
+                                                    <td class="px-3 py-2 text-sm text-gray-500">{{ horario.dia }}</td>
+                                                    <td class="px-3 py-2 text-sm text-gray-500">{{ horario.horario }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm text-gray-500">{{ horario.profesor }}
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+
+                            <div class="mt-6 p-4 bg-blue-50 rounded-lg text-sm text-blue-800">
+                                <p><strong>Nota:</strong> Intervalo de 20:00 a 20:15 hs en todos los días.</p>
+                            </div>
+                        </div>
+                        } @else {
+                        <div class="text-center py-8 text-gray-500">
+                            <p>Por favor, seleccioná tu carrera para ver los horarios correspondientes.</p>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <!-- Constancias -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button (click)="toggleSeccion('constancias')"
+                        class="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors text-left">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-accent-100 flex items-center justify-center text-accent-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Constancias</h3>
+                        </div>
+                        <span class="text-2xl text-primary-600 font-bold">{{ seccionActiva() === 'constancias' ? '−' :
+                            '+' }}</span>
+                    </button>
+
+                    @if (seccionActiva() === 'constancias') {
+                    <div class="p-6 border-t border-gray-100 bg-gray-50">
+                        <p class="text-gray-600 mb-6">Descargá los formularios para solicitar diferentes tipos de
+                            constancias:</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div
+                                class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h5 class="font-bold text-gray-900">Alumno Regular</h5>
+                                    <p class="text-sm text-gray-500">Certificado de regularidad</p>
+                                </div>
+                                <button (click)="descargarDocumento('constancia-regular')"
+                                    class="text-primary-600 hover:text-primary-800">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div
+                                class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h5 class="font-bold text-gray-900">Exámenes</h5>
+                                    <p class="text-sm text-gray-500">Materias aprobadas y a rendir</p>
+                                </div>
+                                <button (click)="descargarDocumento('constancia-examenes')"
+                                    class="text-primary-600 hover:text-primary-800">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div
+                                class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
+                                <div>
+                                    <h5 class="font-bold text-gray-900">Materias Aprobadas</h5>
+                                    <p class="text-sm text-gray-500">Certificado analítico parcial</p>
+                                </div>
+                                <button (click)="descargarDocumento('constancia-materias')"
+                                    class="text-primary-600 hover:text-primary-800">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                <!-- Equivalencias -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button (click)="toggleSeccion('equivalencias')"
+                        class="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors text-left">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Equivalencias</h3>
+                        </div>
+                        <span class="text-2xl text-primary-600 font-bold">{{ seccionActiva() === 'equivalencias' ? '−' :
+                            '+' }}</span>
+                    </button>
+
+                    @if (seccionActiva() === 'equivalencias') {
+                    <div class="p-6 border-t border-gray-100 bg-gray-50">
+                        <p class="text-gray-600 mb-6">Si venís de otra institución, podés solicitar equivalencias de
+                            materias aprobadas.</p>
+
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-2">Requisitos</h5>
+                                <ul class="text-sm text-gray-600 list-disc list-inside space-y-1">
+                                    <li>Programa de la materia</li>
+                                    <li>Certificado de aprobación</li>
+                                    <li>Analítico parcial</li>
+                                    <li>DNI (frente y dorso)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-2">Fechas</h5>
+                                <p class="text-sm text-gray-600">Primer mes de cada cuatrimestre.</p>
+                                <p class="text-sm font-semibold text-primary-600 mt-2">Próximo: Marzo 2025</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-2">Presentación</h5>
+                                <p class="text-sm text-gray-600">Secretaría Académica</p>
+                                <p class="text-sm text-gray-600">Lun a Vie 18:00-22:00</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button (click)="descargarDocumento('solicitud-equivalencias')"
+                                class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                                Descargar Formulario
+                            </button>
+                            <button (click)="descargarDocumento('guia-equivalencias')"
+                                class="border border-primary-600 text-primary-600 px-4 py-2 rounded-lg hover:bg-primary-50 transition-colors flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Guía de Procedimiento
+                            </button>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                <!-- Aula Virtual -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button (click)="toggleSeccion('aula-virtual')"
+                        class="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors text-left">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Aula Virtual</h3>
+                        </div>
+                        <span class="text-2xl text-primary-600 font-bold">{{ seccionActiva() === 'aula-virtual' ? '−' :
+                            '+' }}</span>
+                    </button>
+
+                    @if (seccionActiva() === 'aula-virtual') {
+                    <div class="p-6 border-t border-gray-100 bg-gray-50">
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-gray-900 mb-2">Plataforma de Educación a Distancia
+                                </h4>
+                                <p class="text-gray-600 mb-4">Accedé a los materiales de estudio, foros y actividades de
+                                    tus materias.</p>
+                                <a href="https://aulasvirtuales.bue.edu.ar/" target="_blank"
+                                    class="inline-flex items-center bg-accent-500 text-white px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors font-semibold">
+                                    Ingresar al Aula Virtual
+                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="flex-1 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-3">¿Cómo ingresar?</h5>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li class="flex items-center">
+                                        <span class="w-2 h-2 bg-accent-500 rounded-full mr-2"></span>
+                                        Usuario: tu DNI
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="w-2 h-2 bg-accent-500 rounded-full mr-2"></span>
+                                        Contraseña: la proporcionada por la institución
+                                    </li>
+                                </ul>
+                                <div class="mt-4 pt-4 border-t border-gray-100">
+                                    <a href="#" (click)="verGuia($event)"
+                                        class="text-primary-600 hover:text-primary-800 text-sm block mb-1">Guía de uso
+                                        de la plataforma</a>
+                                    <a href="#" (click)="contactarSoporte($event)"
+                                        class="text-primary-600 hover:text-primary-800 text-sm block">¿Problemas de
+                                        acceso?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
