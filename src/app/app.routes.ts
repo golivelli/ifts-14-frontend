@@ -18,9 +18,25 @@ export const routes: Routes = [
     component: WebLayoutComponent, // 👈 WEB IFTS
     children: [
       { path: '', component: HomeComponent },
+      {
+        path: 'inicio',
+        loadComponent: () => import('./pages/inicio/inicio').then(c => c.InicioComponent)
+      },
       { path: 'instituto', component: InstitutoComponent },
       { path: 'tecnicaturas', component: TecnicaturasComponent },
-      { path: 'estudiantes', component: EstudianteComponent }
+      { path: 'estudiantes', component: EstudianteComponent },
+      {
+        path: 'carreras',
+        loadComponent: () => import('./pages/carreras/carreras').then(c => c.CarrerasComponent)
+      },
+      {
+        path: 'noticias',
+        loadComponent: () => import('./pages/noticias/lista-noticias/lista-noticias').then(c => c.ListaNoticiasComponent)
+      },
+      {
+        path: 'noticias/:id',
+        loadComponent: () => import('./pages/noticias/detalle-noticia/detalle-noticia').then(c => c.DetalleNoticiaComponent)
+      }
     ]
   },
   {

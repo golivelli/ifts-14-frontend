@@ -1,0 +1,69 @@
+<div class="noticias-page bg-gray-50 min-h-screen py-12">
+    <div class="container mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Noticias</h1>
+            <p class="text-xl text-gray-600">Mantente informado sobre las novedades del IFTS N°14</p>
+        </div>
+
+        <!-- Filtros -->
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+            <button class="px-6 py-2 rounded-full font-semibold transition-all"
+                [class.bg-blue-600]="filtroTipo === 'todas'" [class.text-white]="filtroTipo === 'todas'"
+                [class.bg-gray-200]="filtroTipo !== 'todas'" [class.text-gray-700]="filtroTipo !== 'todas'"
+                (click)="filtrarPorTipo('todas')">
+                Todas
+            </button>
+            <button class="px-6 py-2 rounded-full font-semibold transition-all"
+                [class.bg-blue-600]="filtroTipo === 'institucional'" [class.text-white]="filtroTipo === 'institucional'"
+                [class.bg-gray-200]="filtroTipo !== 'institucional'"
+                [class.text-gray-700]="filtroTipo !== 'institucional'" (click)="filtrarPorTipo('institucional')">
+                Institucional
+            </button>
+            <button class="px-6 py-2 rounded-full font-semibold transition-all"
+                [class.bg-blue-600]="filtroTipo === 'academico'" [class.text-white]="filtroTipo === 'academico'"
+                [class.bg-gray-200]="filtroTipo !== 'academico'" [class.text-gray-700]="filtroTipo !== 'academico'"
+                (click)="filtrarPorTipo('academico')">
+                Académico
+            </button>
+            <button class="px-6 py-2 rounded-full font-semibold transition-all"
+                [class.bg-blue-600]="filtroTipo === 'evento'" [class.text-white]="filtroTipo === 'evento'"
+                [class.bg-gray-200]="filtroTipo !== 'evento'" [class.text-gray-700]="filtroTipo !== 'evento'"
+                (click)="filtrarPorTipo('evento')">
+                Eventos
+            </button>
+        </div>
+
+        <!-- Loading -->
+        @if (loading) {
+        <div class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <p class="mt-4 text-gray-600">Cargando noticias...</p>
+        </div>
+        }
+
+        <!-- Grid de Noticias -->
+        Leer más
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        </a>
+    </div>
+</div>
+}
+</div>
+}
+
+<!-- Sin resultados -->
+@if (!loading && noticiasFiltradas.length === 0) {
+<div class="text-center py-12">
+    <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+        </path>
+    </svg>
+    <p class="text-xl text-gray-600">No hay noticias disponibles en esta categoría</p>
+</div>
+}
+</div>
+</div>
