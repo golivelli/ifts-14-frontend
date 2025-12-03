@@ -23,7 +23,7 @@ export class AnunciosService {
     // URL de la API - cambiar según entorno
     // Desarrollo: usar la URL de cPanel directamente
     // Producción: usar ruta relativa '/api'
-    private apiUrl = 'https://tudominio.com/api/anuncios'; // TODO: Cambiar por tu dominio
+    private apiUrl = 'https://www.ifts14.com.ar/api/anuncios';
 
     /**
      * Obtener todos los anuncios

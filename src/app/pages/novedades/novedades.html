@@ -45,7 +45,7 @@
         }
 
         <!-- Lista de Anuncios -->
-        @if (!cargando() && anunciosFiltrados().length > 0) {
+        @if (!cargando() && anunciosFiltrados.length > 0) {
         <div class="bg-white rounded-lg shadow-sm overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -68,7 +68,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @for (anuncio of anunciosFiltrados(); track anuncio.id) {
+                    @for (anuncio of anunciosFiltrados; track anuncio.id) {
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4">
                             <div class="text-sm font-medium text-gray-900">{{ anuncio.titulo }}</div>
@@ -133,7 +133,7 @@
         }
 
         <!-- Sin resultados -->
-        @if (!cargando() && anunciosFiltrados().length === 0) {
+        @if (!cargando() && anunciosFiltrados.length === 0) {
         <div class="bg-white rounded-lg shadow-sm p-12 text-center">
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

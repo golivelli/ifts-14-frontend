@@ -20,7 +20,7 @@ export class HorariosService {
     private http = inject(HttpClient);
 
     // URL de la API - cambiar según entorno
-    private apiUrl = 'https://tudominio.com/api/horarios'; // TODO: Cambiar por tu dominio
+    private apiUrl = 'https://www.ifts14.com.ar/api/horarios';
 
     /**
      * Obtener todos los horarios
