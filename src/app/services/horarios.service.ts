@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 export interface Horario {
     id?: number;
-    carrera: 'sistemas' | 'eficiencia';
-    anio: string;
+    carrera: string;       // Nombre de la carrera
+    anio_division: string; // "1° Año - 1° División"
     materia: string;
-    dia: 'Lunes' | 'Martes' | 'Miércoles' | 'Jueves' | 'Viernes' | 'Sábado';
-    horario: string;
-    profesor?: string;
+    dia: string;
+    horario: string;       // "18:00 - 22:15"
+    profesor: string;
     aula?: string;
 }
 

@@ -1,12 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Horario {
-  materia: string;
-  dia: string;
-  horario: string;
-  profesor: string;
-}
+import { HorariosService, Horario } from '../../services/horarios.service';
 
 interface HorariosMap {
   [key: string]: Horario[];
@@ -19,9 +13,19 @@ interface HorariosMap {
   templateUrl: './estudiantes.html',
   styleUrl: './estudiantes.css'
 })
-export class EstudiantesComponent {
+export class EstudiantesComponent implements OnInit {
+  private horariosService = inject(HorariosService);
+
   seccionActiva = signal<string>('horarios');
   carreraSeleccionada = signal<string>('');
+
+  // Almacena los horarios agrupados por año/división
+  horariosAgrupados = signal<HorariosMap>({});
+  cargando = signal<boolean>(false);
+
+  ngOnInit() {
+    // Si quisieras cargar algo al inicio
+  }
 
   toggleSeccion(seccion: string): void {
     if (this.seccionActiva() === seccion) {
@@ -33,7 +37,49 @@ export class EstudiantesComponent {
 
   cambiarCarrera(event: Event): void {
     const select = event.target as HTMLSelectElement;
-    this.carreraSeleccionada.set(select.value);
+    const carrera = select.value;
+    this.carreraSeleccionada.set(carrera);
+
+    if (carrera) {
+      this.cargarHorarios(carrera);
+    } else {
+      this.horariosAgrupados.set({});
+    }
+  }
+
+  cargarHorarios(carrera: string) {
+    this.cargando.set(true);
+    this.horariosService.getHorarios(carrera).subscribe({
+      next: (data) => {
+        const agrupados = this.agruparHorarios(data);
+        this.horariosAgrupados.set(agrupados);
+        this.cargando.set(false);
+      },
+      error: (err) => {
+        console.error('Error al cargar horarios', err);
+        this.cargando.set(false);
+        // Aquí podrías mostrar un mensaje de error al usuario
+      }
+    });
+  }
+
+  private agruparHorarios(horarios: Horario[]): HorariosMap {
+    return horarios.reduce((acc, curr) => {
+      const key = curr.anio_division;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(curr);
+      return acc;
+    }, {} as HorariosMap);
+  }
+
+  getAniosUnicos() {
+    return Object.keys(this.horariosAgrupados());
+  }
+
+  getHorariosPorAnio(anio: string): Horario[] {
+    return this.horariosAgrupados()[anio] || [];
   }
 
   descargarDocumento(tipo: string): void {
@@ -65,85 +111,5 @@ export class EstudiantesComponent {
   contactarSoporte(event: Event): void {
     event.preventDefault();
     alert('Redirigiendo a soporte técnico');
-  }
-
-  // Datos completos de horarios 2° Cuatrimestre 2025 - Sistemas Embebidos IoT
-  getHorariosSistemas(): HorariosMap {
-    return {
-      '1° Año - 1° División': [
-        { materia: 'Desarrollo de Sistemas Web', dia: 'Lunes', horario: '18:00 - 22:15', profesor: 'Belaunde, Victor Manuel' },
-        { materia: 'Circuitos Eléctricos y Electrónicos', dia: 'Martes', horario: '18:00 - 22:15', profesor: 'Bertani, Jorge' },
-        { materia: 'Técnicas de Programación', dia: 'Miércoles', horario: '18:00 - 22:15', profesor: 'Tejerina, Sandra' },
-        { materia: 'Electrónica Digital y Microprocesadores', dia: 'Jueves', horario: '18:00 - 22:15', profesor: 'Belaunde, V. / Bertani, J.' },
-        { materia: 'Desarrollo de Sistemas Web', dia: 'Viernes', horario: '18:00 - 20:00', profesor: 'Belaunde, Victor Manuel' },
-        { materia: 'Técnicas de Programación', dia: 'Viernes', horario: '20:15 - 22:15', profesor: 'Bertani, Jorge' }
-      ],
-      '1° Año - 2° División': [
-        { materia: 'Desarrollo y Testing de Software SE', dia: 'Lunes', horario: '18:00 - 22:15', profesor: 'Velárdez, Germán' },
-        { materia: 'Protocolos de IoT', dia: 'Martes', horario: '18:00 - 22:15', profesor: 'Granzella, Damián Eduardo' },
-        { materia: 'Programación y Comunicación en SE', dia: 'Miércoles', horario: '18:00 - 22:15', profesor: 'Alonso Castillo, Pablo' },
-        { materia: 'Administración de Base de Datos', dia: 'Jueves', horario: '18:00 - 22:15', profesor: 'Belaunde, Víctor Manuel' },
-        { materia: 'Administración de Base de Datos', dia: 'Viernes', horario: '20:15 - 22:15', profesor: 'Belaunde, Víctor Manuel' }
-      ],
-      '2° Año': [
-        { materia: 'Sistemas Operativos en Tiempo Real', dia: 'Martes', horario: '18:00 - 22:15', profesor: 'Gómez Molino, Hernán' },
-        { materia: 'Ciberseguridad en IoT', dia: 'Miércoles', horario: '18:00 - 22:15', profesor: 'Prieto, Gustavo' },
-        { materia: 'Desarrollo de Aplicaciones Vinculadas a Base de Datos', dia: 'Viernes', horario: '18:00 - 22:15', profesor: 'Petroff, Maximiliano' }
-      ],
-      '3° Año': [
-        { materia: 'Procesamiento de Aprendizaje Automático', dia: 'Lunes', horario: '18:00 - 22:15', profesor: 'Iaria, Pablo' },
-        { materia: 'Proyecto Integrador', dia: 'Martes', horario: '18:00 - 22:15', profesor: 'Alonso Castillo, Pablo' },
-        { materia: 'Procesamiento de Aprendizaje Automático', dia: 'Miércoles', horario: '18:00 - 20:00', profesor: 'Iaria, Pablo' },
-        { materia: 'Modelizado y Minería de Datos', dia: 'Miércoles', horario: '20:15 - 22:15', profesor: 'Rodríguez, Daniel F.' },
-        { materia: 'Proyecto Integrador', dia: 'Jueves', horario: '18:40 - 20:55', profesor: 'Alonso Castillo, Pablo' },
-        { materia: 'Modelizado y Minería de Datos', dia: 'Viernes', horario: '18:00 - 22:15', profesor: 'Rodríguez, Daniel F.' }
-      ]
-    };
-  }
-
-  // Datos completos de horarios 2° Cuatrimestre 2025 - Eficiencia Energética
-  getHorariosEficiencia(): HorariosMap {
-    return {
-      '1° Año': [
-        { materia: 'Física', dia: 'Lunes', horario: '18:00 - 20:55', profesor: 'Alonso Castillo, Pablo' },
-        { materia: 'Prácticas Profesionalizantes I', dia: 'Martes', horario: '18:40 - 22:15', profesor: 'Gómez Riera, Germán' },
-        { materia: 'Representación Gráfica Específica', dia: 'Miércoles', horario: '18:00 - 22:15', profesor: 'Gallardo, Lucia' },
-        { materia: 'Fuentes de Energía', dia: 'Jueves', horario: '18:00 - 22:15', profesor: 'Schvartz, Sebastian' },
-        { materia: 'Álgebra Lineal', dia: 'Viernes', horario: '18:00 - 21:35', profesor: 'Alonso Castillo, Pablo' }
-      ],
-      '2° Año': [
-        { materia: 'Evaluación Energética de Edificios', dia: 'Lunes', horario: '18:00 - 22:15', profesor: 'Schvartz, Sebastian' },
-        { materia: 'Prácticas Profesionalizantes II', dia: 'Martes', horario: '18:00 - 20:55', profesor: 'Pillon, Fernando' },
-        { materia: 'Sistemas de Climatización', dia: 'Miércoles', horario: '18:00 - 22:15', profesor: 'Pons, Flavio' },
-        { materia: 'Instalaciones Eléctricas', dia: 'Jueves', horario: '18:00 - 22:15', profesor: 'Gagliardi, Adrián' },
-        { materia: 'Problemáticas Socio Económicas de la Energía', dia: 'Viernes', horario: '18:00 - 20:55', profesor: 'López, C. Guillermo' }
-      ],
-      '3° Año': [
-        { materia: 'Instalaciones Industriales', dia: 'Lunes', horario: '18:00 - 22:15', profesor: 'Fuentes, Carlos A.' },
-        { materia: 'Inglés Técnico', dia: 'Martes', horario: '18:40 - 20:55', profesor: 'Schvartz, Sebastian' },
-        { materia: 'Instalaciones Aplicadas a Energías Renovables', dia: 'Miércoles', horario: '18:00 - 22:15', profesor: 'Fuentes, C. / Pons, F. / Schvartz, S.' },
-        { materia: 'Gestión Energética', dia: 'Jueves', horario: '18:40 - 22:15', profesor: 'Pons, Flavio' },
-        { materia: 'Prácticas Profesionalizantes III', dia: 'Viernes', horario: '18:00 - 22:15', profesor: 'Fuentes, Carlos A.' }
-      ]
-    };
-  }
-
-  getHorariosActuales(): HorariosMap {
-    if (this.carreraSeleccionada() === 'sistemas') {
-      return this.getHorariosSistemas();
-    } else if (this.carreraSeleccionada() === 'eficiencia') {
-      return this.getHorariosEficiencia();
-    }
-    return {};
-  }
-
-  getAniosUnicos() {
-    const horarios = this.getHorariosActuales();
-    return Object.keys(horarios);
-  }
-
-  getHorariosPorAnio(anio: string): Horario[] {
-    const horarios = this.getHorariosActuales();
-    return horarios[anio] || [];
   }
 }
