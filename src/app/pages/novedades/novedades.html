@@ -1,1 +1,157 @@
-<p>novedades works!</p>
+<div class="min-h-screen bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Gestión de Anuncios</h1>
+            <p class="text-gray-600">Administra los anuncios y noticias del sitio</p>
+        </div>
+
+        <!-- Acciones y Filtros -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <!-- Botón Nuevo -->
+                <a routerLink="/admin-ifts14-2024/novedad"
+                    class="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Nuevo Anuncio
+                </a>
+
+                <!-- Filtros -->
+                <div class="flex flex-col md:flex-row gap-4 flex-1 md:justify-end">
+                    <!-- Búsqueda -->
+                    <input type="text" [(ngModel)]="busqueda" placeholder="Buscar anuncios..."
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+
+                    <!-- Filtro por estado -->
+                    <select [(ngModel)]="filtroEstado" (change)="filtrarPorEstado(filtroEstado())"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="">Todos los estados</option>
+                        <option value="publicado">Publicados</option>
+                        <option value="borrador">Borradores</option>
+                        <option value="archivado">Archivados</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        @if (cargando()) {
+        <div class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <p class="mt-4 text-gray-600">Cargando anuncios...</p>
+        </div>
+        }
+
+        <!-- Lista de Anuncios -->
+        @if (!cargando() && anunciosFiltrados().length > 0) {
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Título
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Estado
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Fecha
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Destacado
+                        </th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @for (anuncio of anunciosFiltrados(); track anuncio.id) {
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-medium text-gray-900">{{ anuncio.titulo }}</div>
+                            <div class="text-sm text-gray-500 truncate max-w-md">
+                                {{ anuncio.contenido.substring(0, 100) }}...
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                [ngClass]="getEstadoClass(anuncio.estado)">
+                                {{ anuncio.estado }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ anuncio.fecha_publicacion | date : 'dd/MM/yyyy' }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button (click)="toggleDestacado(anuncio)" class="text-2xl"
+                                [title]="anuncio.destacado ? 'Quitar destacado' : 'Marcar como destacado'">
+                                {{ anuncio.destacado === 1 ? '⭐' : '☆' }}
+                            </button>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <div class="flex gap-2 justify-end">
+                                <!-- Editar -->
+                                <a [routerLink]="['/admin-ifts14-2024/novedad', anuncio.id]"
+                                    class="text-primary-600 hover:text-primary-900" title="Editar">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                        </path>
+                                    </svg>
+                                </a>
+
+                                <!-- Publicar (si es borrador) -->
+                                @if (anuncio.estado === 'borrador') {
+                                <button (click)="publicarAnuncio(anuncio.id!)"
+                                    class="text-green-600 hover:text-green-900" title="Publicar">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </button>
+                                }
+
+                                <!-- Eliminar -->
+                                <button (click)="eliminarAnuncio(anuncio.id!)" class="text-red-600 hover:text-red-900"
+                                    title="Eliminar">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+
+        <!-- Sin resultados -->
+        @if (!cargando() && anunciosFiltrados().length === 0) {
+        <div class="bg-white rounded-lg shadow-sm p-12 text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No hay anuncios</h3>
+            <p class="mt-1 text-sm text-gray-500">Comienza creando un nuevo anuncio.</p>
+            <div class="mt-6">
+                <a routerLink="/admin-ifts14-2024/novedad"
+                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Nuevo Anuncio
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+</div>

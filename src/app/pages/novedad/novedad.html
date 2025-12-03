@@ -1,1 +1,103 @@
-<p>novedad works!</p>
+<div class="min-h-screen bg-gray-50 p-6">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                {{ anuncioId() ? 'Editar Anuncio' : 'Nuevo Anuncio' }}
+            </h1>
+            <p class="text-gray-600">
+                {{ anuncioId() ? 'Modifica los datos del anuncio' : 'Completa el formulario para crear un nuevo anuncio'
+                }}
+            </p>
+        </div>
+
+        <!-- Loading -->
+        @if (cargando()) {
+        <div class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <p class="mt-4 text-gray-600">Cargando...</p>
+        </div>
+        }
+
+        <!-- Formulario -->
+        @if (!cargando()) {
+        <form [formGroup]="form" (ngSubmit)="guardar()" class="bg-white rounded-lg shadow-sm p-8">
+            <!-- Título -->
+            <div class="mb-6">
+                <label for="titulo" class="block text-sm font-medium text-gray-700 mb-2">
+                    Título <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="titulo" formControlName="titulo"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Título del anuncio" />
+                @if (form.get('titulo')?.invalid && form.get('titulo')?.touched) {
+                <p class="mt-1 text-sm text-red-600">El título es requerido</p>
+                }
+            </div>
+
+            <!-- Contenido -->
+            <div class="mb-6">
+                <label for="contenido" class="block text-sm font-medium text-gray-700 mb-2">
+                    Contenido <span class="text-red-500">*</span>
+                </label>
+                <textarea id="contenido" formControlName="contenido" rows="10"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Escribe el contenido del anuncio aquí..."></textarea>
+                @if (form.get('contenido')?.invalid && form.get('contenido')?.touched) {
+                <p class="mt-1 text-sm text-red-600">El contenido es requerido</p>
+                }
+                <p class="mt-1 text-sm text-gray-500">Puedes usar HTML básico para dar formato al texto</p>
+            </div>
+
+            <!-- Estado y Destacado -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Estado -->
+                <div>
+                    <label for="estado" class="block text-sm font-medium text-gray-700 mb-2">
+                        Estado <span class="text-red-500">*</span>
+                    </label>
+                    <select id="estado" formControlName="estado"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option value="borrador">Borrador</option>
+                        <option value="publicado">Publicado</option>
+                        <option value="archivado">Archivado</option>
+                    </select>
+                </div>
+
+                <!-- Destacado -->
+                <div class="flex items-center">
+                    <input type="checkbox" id="destacado" formControlName="destacado"
+                        class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500" />
+                    <label for="destacado" class="ml-2 block text-sm font-medium text-gray-700">
+                        Marcar como destacado
+                    </label>
+                </div>
+            </div>
+
+            <!-- Autor -->
+            <div class="mb-8">
+                <label for="autor" class="block text-sm font-medium text-gray-700 mb-2"> Autor </label>
+                <input type="text" id="autor" formControlName="autor"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Nombre del autor" />
+            </div>
+
+            <!-- Botones -->
+            <div class="flex gap-4 justify-end border-t pt-6">
+                <button type="button" (click)="cancelar()"
+                    class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                    [disabled]="guardando()">
+                    Cancelar
+                </button>
+                <button type="submit"
+                    class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    [disabled]="guardando() || form.invalid">
+                    @if (guardando()) {
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    } {{ guardando() ? 'Guardando...' : (anuncioId() ? 'Actualizar' : 'Crear Anuncio') }}
+                </button>
+            </div>
+        </form>
+        }
+    </div>
+</div>

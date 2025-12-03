@@ -40,10 +40,11 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'panel',
-    component: AdminLayoutComponent, // 👈 PANEL IFTS
+    path: 'admin-ifts14-2024',
+    component: AdminLayoutComponent, // 👈 PANEL IFTS (ruta oculta)
     children: [
       { path: 'novedad', component: NovedadComponent },
+      { path: 'novedad/:id', component: NovedadComponent }, // Edición
       { path: 'novedades', component: NovedadesComponent },
       { path: 'borradores', component: BorradorComponent }
     ]
