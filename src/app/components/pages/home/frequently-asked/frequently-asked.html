@@ -5,7 +5,7 @@
   </div>
   <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="w-[720px] max-w-[720px]">
-    <mat-expansion-panel-header class="border border-b-white">
+    <mat-expansion-panel-header class="">
       <mat-panel-title>¿Los títulos son oficiales?</mat-panel-title>
     </mat-expansion-panel-header>
     <p class="text-[#E9E9E9]">Sí, otorgamos títulos de Técnico Superior con validez nacional, avalados por el Ministerio de Educación de la CABA. Esto te habilita para matricularte en los consejos profesionales y articular con universidades para licenciaturas. {{panelOpenState() ? 'open' : 'closed'}}</p>

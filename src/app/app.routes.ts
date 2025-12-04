@@ -18,6 +18,7 @@ export const routes: Routes = [
     path: '',
     component: WebLayoutComponent, // 👈 WEB IFTS
     children: [
+      
       { path: '', component: HomeComponent },
       { path: 'instituto', component: InstitutoComponent },
       {
@@ -43,6 +44,11 @@ export const routes: Routes = [
                 .then(m => m.EficienciaEnergeticaComponent)
           }
         ]
+      },
+      {
+        path: 'novedades',
+        loadComponent: () =>
+          import('./pages/novedad/novedad').then(m => m.NovedadComponent)
       },
       { path: 'estudiantes', component: EstudiantesComponent },
       {

@@ -36,7 +36,7 @@ export class SistemasEmbebidosComponent {
       nombreCorto: 'Sistemas embebidos e internet de las cosas',
       nombreCompleto: 'Tecnicatura superior en sistemas embebidos e internet de las cosas',
       descripcion: 'Formación en desarrollo de sistemas inteligentes conectados y aplicaciones IoT. Programación de microcontroladores, electrónica digital y comunicaciones.',
-      descripcionCompleta: 'La Tecnicatura Superior en Sistemas Embebidos e Internet de las Cosas forma profesionales capacitados para diseñar, desarrollar e implementar sistemas inteligentes conectados. Los estudiantes adquieren competencias en programación de microcontroladores, desarrollo de aplicaciones IoT, electrónica digital y comunicaciones inalámbricas.',
+      descripcionCompleta: 'La tecnicatura superior en sistemas embebidos e internet de las cosas forma profesionales capacitados para diseñar, desarrollar e implementar sistemas inteligentes conectados. Los estudiantes adquieren competencias en programación de microcontroladores, desarrollo de aplicaciones IoT, electrónica digital y comunicaciones inalámbricas.',
       info: ['3 años de duración', 'Modalidad Presencial', 'Turno Tarde/Noche'],
       informacion: [
         { titulo: 'Duración', valor: '3 años', icono: 'duration' },
@@ -113,6 +113,5 @@ export class SistemasEmbebidosComponent {
 
   descargarPDF(): void {
     const url = '/assets/Tecnicatura-Superior-en-Sistemas-Embebidos.pdf';
-    window.open(url, '_blank');
   }
 }

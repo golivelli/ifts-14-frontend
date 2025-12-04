@@ -37,7 +37,7 @@ export class EficienciaEnergeticaComponent {
     nombreCompleto: 'Tecnicatura superior en eficiencia energética',
     descripcion: 'Especialización en optimización energética y sostenibilidad ambiental.',
     descripcionCompleta:
-      'La Tecnicatura Superior en Eficiencia Energética forma técnicos capaces de optimizar el consumo energético en diversos sectores. Los estudiantes aprenden a realizar auditorías energéticas, implementar sistemas de gestión de energía y desarrollar proyectos de energías renovables y sostenibilidad ambiental.',
+      'La tecnicatura superior en eficiencia energética forma técnicos capaces de optimizar el consumo energético en diversos sectores. Los estudiantes aprenden a realizar auditorías energéticas, implementar sistemas de gestión de energía y desarrollar proyectos de energías renovables y sostenibilidad ambiental.',
     informacion: [
       { titulo: 'Duración', valor: '3 años', icono: 'duration' },
       { titulo: 'Modalidad', valor: 'Presencial', icono: 'modality' },
@@ -114,6 +114,5 @@ export class EficienciaEnergeticaComponent {
 
   descargarPDF(): void {
     const url = '/assets/Tecnicatura-Superior-en-Eficiencia-Energética.pdf';
-    window.open(url, '_blank');
   }
 }

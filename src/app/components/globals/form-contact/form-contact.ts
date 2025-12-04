@@ -56,20 +56,20 @@ export class FormContact {
     const formData = this.contactForm.value;
 
     // Llamada al backend
-    fetch('https://TU_BACKEND_URL/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-      .then(res => res.json())
-      .then(() => {
-        alert('Consulta enviada.');
-        this.contactForm.reset();
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Hubo un error al enviar la consulta.');
-      });
+    // fetch('https://TU_BACKEND_URL/api/contact', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(formData)
+    // })
+    //   .then(res => res.json())
+    //   .then(() => {
+    //     alert('Consulta enviada.');
+    //     this.contactForm.reset();
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //     alert('Hubo un error al enviar la consulta.');
+    //   });
   }
 
   formatPhone(event: any) {
