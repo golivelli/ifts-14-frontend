@@ -1,0 +1,42 @@
+<div class="bg-[#0f4c81cc] flex flex-row justify-around mt-[72px] p-[24px]">
+  <div class="flex flex-col gap-[6px] w-auto">
+    <p class="text-xl font-semibold text-[#E9E9E9] text-shadow-sm">Preguntas frecuentes</p>
+    <p class="text-base text-[#E9E9E9]">Si no encontrás tu consulta, envía la tuya <span routerLink="/contactanos" class="text-[#FF9D00] font-semibold cursor-pointer hover:underline">aquí</span>.</p>
+  </div>
+  <mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="w-[720px] max-w-[720px]">
+    <mat-expansion-panel-header class="border border-b-white">
+      <mat-panel-title>¿Los títulos son oficiales?</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p class="text-[#E9E9E9]">Sí, otorgamos títulos de Técnico Superior con validez nacional, avalados por el Ministerio de Educación de la CABA. Esto te habilita para matricularte en los consejos profesionales y articular con universidades para licenciaturas. {{panelOpenState() ? 'open' : 'closed'}}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="w-[720px] max-w-[720px]">
+    <mat-expansion-panel-header>
+      <mat-panel-title>¿La cursada es gratuita?</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p class="text-[#E9E9E9]">Absolutamente. Al ser una institución pública de gestión estatal, no cobramos matrícula ni cuota mensual. Solo existe una cooperadora voluntaria que ayuda al mantenimiento de los laboratorios y equipos.{{panelOpenState() ? 'open' : 'closed'}}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="w-[720px] max-w-[720px]">
+    <mat-expansion-panel-header>
+      <mat-panel-title>¿Cuáles son los horarios y la modalidad?</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p class="text-[#E9E9E9]">La modalidad es presencial y se cursa en turno vespertino, de lunes a viernes de 18:30 a 22:40 hs. Este horario está diseñado específicamente para permitir que nuestros estudiantes puedan trabajar durante el día.{{panelOpenState() ? 'open' : 'closed'}}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="w-[720px] max-w-[720px]">
+    <mat-expansion-panel-header>
+      <mat-panel-title>¿Necesito conocimientos previos para inscribirme?</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p class="text-[#E9E9E9]">No es obligatorio. Nuestro plan de estudios comienza desde lo básico. Si bien tener nociones de lógica, matemática o electricidad ayuda, la carrera está pensada para que aprendas todo desde cero{{panelOpenState() ? 'open' : 'closed'}}</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" class="w-[720px] max-w-[720px]">
+    <mat-expansion-panel-header>
+      <mat-panel-title>¿Hay convenios con empresas o pasantías?</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p class="text-[#E9E9E9]">Sí, contamos con un área de Prácticas Profesionalizantes muy activa. Tenemos convenios con empresas del sector tecnológico y energético para facilitar la primera inserción laboral de nuestros estudiantes.{{panelOpenState() ? 'open' : 'closed'}}</p>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>

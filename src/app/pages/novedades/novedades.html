@@ -1,1 +1,113 @@
-<p>novedades works!</p>
+<div class="container mx-auto p-6">
+
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">
+        Novedades
+    </h1>
+
+    <!-- Barra de acciones -->
+    <div class="flex flex-wrap gap-4 items-center mb-6">
+
+        <!-- Buscar -->
+        <input type="text" [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)"
+            placeholder="Buscar anuncios..."
+            class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:w-80" />
+
+        <!-- Filtro por estado -->
+        <select [ngModel]="filtroEstado()" (ngModelChange)="filtroEstado.set($event)"
+            class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Todos los estados</option>
+            <option value="borrador">Borradores</option>
+            <option value="publicado">Publicados</option>
+            <option value="archivado">Archivados</option>
+        </select>
+
+        <!-- Botón agregar -->
+        <a routerLink="/admin-ifts14-2024/novedad"
+            class="ml-auto bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700">
+            + Crear nuevo anuncio
+        </a>
+    </div>
+
+
+    <!-- LOADING -->
+    @if (cargando()) {
+    <div class="text-center py-10">
+        <p class="text-gray-500">Cargando anuncios...</p>
+    </div>
+    }
+
+
+    <!-- LISTADO -->
+    @if (!cargando() && anunciosFiltrados().length > 0) {
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+        @for (anuncio of anunciosFiltrados(); track anuncio.id) {
+
+        <div class="border border-gray-200 p-5 rounded-lg shadow-sm bg-white">
+
+            <div class="flex justify-between items-start">
+                <h2 class="text-xl font-semibold text-gray-800">{{ anuncio.titulo }}</h2>
+
+                <!-- DESTACADO -->
+                <button class="text-yellow-500 text-2xl leading-none" (click)="toggleDestacado(anuncio)">
+                    {{ anuncio.destacado === 1 ? '⭐' : '☆' }}
+                </button>
+            </div>
+
+            <p class="text-gray-600 mt-2 line-clamp-3">
+                {{ anuncio.contenido }}
+            </p>
+
+            <div class="flex items-center gap-3 mt-3">
+
+                <!-- CHIP ESTADO -->
+                <span class="px-3 py-1 text-sm font-medium rounded-lg" [ngClass]="getEstadoClass(anuncio.estado)">
+                    {{ anuncio.estado }}
+                </span>
+
+                <!-- FECHA -->
+                <span class="text-sm text-gray-400">
+                    {{ anuncio.fecha_publicacion | date:'dd/MM/yyyy HH:mm' }}
+                </span>
+
+            </div>
+
+            <!-- BOTONES -->
+            <div class="flex gap-3 mt-4">
+
+                <!-- Editar -->
+                <a [routerLink]="['/admin-ifts14-2024/novedad', anuncio.id]" class="text-blue-600 hover:underline">
+                    Editar
+                </a>
+
+                <!-- Publicar -->
+                @if (anuncio.estado !== 'publicado') {
+                <button class="text-green-600 hover:underline" (click)="publicarAnuncio(anuncio.id)">
+                    Publicar
+                </button>
+                }
+
+                <!-- Eliminar -->
+                <button class="text-red-600 hover:underline" (click)="eliminarAnuncio(anuncio.id)">
+                    Eliminar
+                </button>
+
+            </div>
+        </div>
+
+        }
+
+    </div>
+
+    }
+
+
+    <!-- LISTA VACÍA -->
+    @if (!cargando() && anunciosFiltrados().length === 0) {
+    <div class="text-center py-10">
+        <p class="text-gray-500">No se encontraron anuncios.</p>
+    </div>
+    }
+
+</div>

@@ -1,0 +1,107 @@
+<!-- Detalle de Carrera Específica -->
+<div class="bg-gray-50">
+  <div class="overflow-hidden p-[64px] mt-[64px]">
+    <div class="border border-[#DDDDDD] rounded-md overflow-hidden">
+      <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white p-8 rounded-t-md">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <h2 class="text-3xl font-bold">{{ carreraDetalle.nombreCompleto }}</h2>
+          <button
+            class="bg-white text-primary-600 px-6 py-2 rounded-lg hover:bg-primary-50 transition-colors flex items-center gap-2"
+            (click)="descargarPDF()" type="button">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+              </path>
+            </svg>
+            Descargar plan completo
+          </button>
+        </div>
+      </div>
+    
+      <div class="grid md:grid-cols-4 gap-4 p-8 bg-gray-50">
+        @for (info of carreraDetalle.informacion; track info.titulo) {
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h4 class="text-sm text-gray-600 mb-1">{{ info.titulo }}</h4>
+          <p class="text-lg font-semibold text-[#2e2e2e]">{{ info.valor }}</p>
+        </div>
+        }
+      </div>
+    
+      <div class="p-8 bg-white">
+        <h3 class="text-2xl font-bold text-[#2e2e2e] mb-4">Descripción de la carrera</h3>
+        <p class="text-[#2e2e2e] leading-relaxed">{{ carreraDetalle.descripcionCompleta }}</p>
+      </div>
+    
+      <div class="p-8 bg-gray-50">
+        <h3 class="text-2xl font-bold text-[#2e2e2e] mb-6">Plan de estudios</h3>
+        <div class="space-y-4">
+          @for (anio of [1,2,3]; track anio) {
+          @let index = $index;
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+            <button class="w-full p-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
+              (click)="toggleAcordeon(index)" type="button"
+              [attr.aria-expanded]="esAcordeonAbierto(index)">
+              <span class="text-lg font-semibold text-gray-900">{{ anio }}° Año</span>
+              <span class="text-2xl text-primary-600">
+                {{ esAcordeonAbierto(index) ? '−' : '+' }}
+              </span>
+            </button>
+            @if (esAcordeonAbierto(index)) {
+            <div class="p-4 border-t border-gray-200">
+              <div class="space-y-2">
+                @for (materia of obtenerMaterias(anio); track materia.nombre) {
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                  <span class="font-medium text-gray-900">{{ materia.nombre }}</span>
+                  <span class="text-sm text-gray-600">{{ materia.horas }} horas</span>
+                </div>
+                }
+              </div>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    
+      <div class="p-8 bg-white">
+        <h3 class="text-2xl font-bold text-[#2e2e2e] mb-4">Perfil del egresado</h3>
+        <ul class="space-y-3">
+          @for (perfil of carreraDetalle.perfilEgresado; track perfil) {
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7">
+              </path>
+            </svg>
+            <span class="text-[#2e2e2e]">{{ perfil }}</span>
+          </li>
+          }
+        </ul>
+      </div>
+    
+      <div class="p-8 bg-gray-50 rounded-b-md">
+        <h3 class="text-2xl font-bold text-[#2e2e2e] mb-4">Requisitos de inscripción</h3>
+        <ul class="space-y-2 mb-6">
+          @for (requisito of carreraDetalle.requisitos; track requisito) {
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"></path>
+            </svg>
+            <span class="text-[#2e2e2e]">{{ requisito }}</span>
+          </li>
+          }
+        </ul>
+    
+        <div class="bg-primary-50 border-l-4 border-primary-500 p-4 mb-4">
+          <h4 class="font-semibold text-primary-900 mb-2">Para consultas sobre preinscripción</h4>
+          <p class="text-primary-800">
+            <a href="mailto:bedelia.its14@bue.edu.ar" class="underline hover:text-primary-600">bedelia.its14@bue.edu.ar</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- border-[#DDDDDD] -->

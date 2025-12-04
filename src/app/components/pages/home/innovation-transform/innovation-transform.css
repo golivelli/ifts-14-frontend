@@ -1,0 +1,27 @@
+.innovation {
+  height: 390px;
+  width: 1350px;
+
+  max-height: 390px;
+  max-width: 1350px;
+
+  object-fit: contain;
+
+  background: url("@/assets/bg-sectiontec.webp") center/cover no-repeat;
+
+  border-radius: 16px;
+
+  position: relative;
+  
+  overflow: hidden;
+  
+  z-index: 1;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(46, 46, 46, 0.75);
+    z-index: 0;
+  }
+}

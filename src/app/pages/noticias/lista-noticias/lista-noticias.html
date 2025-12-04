@@ -1,0 +1,96 @@
+<div class="noticias-page bg-gray-50 min-h-screen py-16 mt-[64px]">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col items-center gap-[20px] mb-[32px]">
+        <div class="flex flex-col gap-[4px]">
+          <h1 class="text-content text-shadow-sm text-center">Noticias</h1>
+          <p class="text-[#555555] text-center">Mantente informado sobre las novedades del IFTS N. °14</p>
+        </div>
+
+        <div class="p-2 w-[410px] flex flex-row gap-[16px] items-center justify-center border border-[#DDDDDD] rounded-2xl">
+          <app-primary-button label="Anuncios Institucionales" variant="outline" tone="secondary"
+            [active]="activeTab === 'anuncio'" (onClick)="setActiveTab('anuncio')"></app-primary-button>
+          <app-primary-button label="Novedades" variant="outline" tone="secondary" [active]="activeTab === 'novedad'"
+            (onClick)="setActiveTab('novedad')"></app-primary-button>
+        </div>
+      </div>
+
+        <!-- Loading -->
+        @if (loading) {
+        <div class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <p class="mt-4 text-gray-600">Cargando noticias...</p>
+        </div>
+        }
+
+        <!-- Paginador -->
+<div class="flex justify-end mb-4" *ngIf="!loading && noticiasFiltradas.length > 0">
+  <div class="flex items-center gap-2 text-sm">
+
+    <!-- Botón anterior -->
+    <button 
+      (click)="page = page - 1"
+      [disabled]="page === 1"
+      class="px-3 py-1 border rounded-lg text-[#2E2E2E] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100 transition">
+      ‹
+    </button>
+
+    <!-- Información de página -->
+    <span class="text-[#2E2E2E]">
+      {{ page }} de {{ totalPaginas }}
+    </span>
+
+    <!-- Botón siguiente -->
+    <button 
+      (click)="page = page + 1"
+      [disabled]="page === totalPaginas"
+      class="px-3 py-1 border rounded-lg text-[#2E2E2E] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100 transition">
+      ›
+    </button>
+
+  </div>
+</div>
+
+        <!-- Grid de Noticias -->
+        @if (!loading && noticiasFiltradas.length > 0) {
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (noticia of noticiasFiltradas; track noticia.id) {
+            <div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
+                <div class="p-6 flex flex-col justify-around">
+                    <div class="flex justify-between items-center gap-2 mb-3">
+                      <span class="text-sm text-gray-500">{{ noticiasService.formatearFecha(noticia.fecha) }}</span>
+                      <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                          [class.bg-primary-100]="noticia.tipo === 'novedad'"
+                          [class.text-primary-800]="noticia.tipo === 'novedad'"
+                          [class.bg-orange-100]="noticia.tipo === 'anuncio'"
+                          [class.text-orange-800]="noticia.tipo === 'anuncio'">
+                          {{ noticia.tipo | titlecase }}
+                      </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#2E2E2E] mb-3">{{ noticia.titulo }}</h3>
+                    <p class="text-[#2E2E2E] mb-4 line-clamp-3">{{ noticia.descripcion }}</p>
+                    <a [routerLink]="['/noticias', noticia.id]"
+                        class="inline-flex items-center text-primary-600 hover:text-primary-700 font-normal hover:font-semibold transition-all duration-200">
+                        Leer más
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Sin resultados -->
+        @if (!loading && noticiasFiltradas.length === 0) {
+        <div class="text-center py-12">
+            <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+            </svg>
+            <p class="text-sm text-[#555555] italic">No hay noticias disponibles</p>
+        </div>
+        }
+    </div>
+</div>

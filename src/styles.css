@@ -1,6 +1,24 @@
-*{
-font-family: "DM Sans", sans-serif;
-font-size: 16px;
-font-weight: 400;
-color: #2E2E2E;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "DM Sans", sans-serif;
+}
+
+:root {
+  --color-primary: #EB840F;            
+  --color-primary-hover: #ff9f32;     
+  --color-primary-active: #c76c0c;     
+  --color-primary-disabled: #555555;   
+  --color-on-primary: #E9E9E9;     
+  
+  --color-secondary: #0F4C81;
+  --color-secondary-hover: #1560a8;
+  --color-secondary-active: #0b3863;
+  --color-secondary-disable: #555555;
+  --color-on-secondary: #E9E9E9;
+  --color-outline-secondary: #2E2E2E;
+
+  --transition-fast: 0.2s ease-in-out;
 }

@@ -1,0 +1,14 @@
+<div class="flex flex-col gap-[24px] items-center mt-[96px]">
+  <div class="flex flex-col gap-[16px]">
+    <p class="text-actualidad text-shadow-sm">Actualidad Académica</p>
+    <p class="text-desc">Encontrá aquí las últimas comunicaciones del IFTS: noticias, anuncio institucionales y
+      novedades para estudiantes y aspirantes.</p>
+  </div>
+  <div class="p-2 flex flex-row gap-[16px] items-center justify-center border border-[#DDDDDD] rounded-xl">
+    <app-primary-button label="Anuncios Institucionales" variant="outline" tone="secondary"
+      [active]="activeTab === 'anuncio'" (onClick)="setActiveTab('anuncio')"></app-primary-button>
+    <app-primary-button label="Novedades" variant="outline" tone="secondary" [active]="activeTab === 'novedad'"
+      (onClick)="setActiveTab('novedad')"></app-primary-button>
+  </div>
+    <app-card [filtroCategoria]="activeTab"></app-card>
+</div>

@@ -4,10 +4,14 @@ import { WebLayoutComponent } from './layout/web-layout/web-layout';
 
 import { HomeComponent } from './pages/home/home';
 import { InstitutoComponent } from './pages/instituto/instituto';
-import { TecnicaturasComponent } from './pages/tecnicaturas/tecnicaturas';
-import { EstudianteComponent } from './pages/estudiantes/estudiantes';
+import { EstudiantesComponent } from './pages/estudiantes/estudiantes';
 
-import { PanelLayoutComponent } from './pages/panel/panel-layout/panel-layout.component';
+import { AdminLayoutComponent } from './layout/panel-layout/panel-layout';
+import { NovedadComponent } from './pages/novedad/novedad';
+import { NovedadesComponent } from './pages/novedades/novedades';
+import { BorradorComponent } from './pages/borradores/borradores';
+import { ContactanosComponent } from './pages/contactanos/contactanos';
+import { PoliticaPrivacidad } from './components/pages/politica-privacidad/politica-privacidad';
 
 export const routes: Routes = [
   // 🔹 Sitio público
@@ -17,71 +21,52 @@ export const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'instituto', component: InstitutoComponent },
-      { path: 'tecnicaturas', component: TecnicaturasComponent },
-      { path: 'estudiantes', component: EstudianteComponent },
+      {
+        path: 'tecnicaturas',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/tecnicaturas/tecnicaturas').then(
+                m => m.TecnicaturasComponent
+              )
+          },
+          {
+            path: 'sistemas-embebidos',
+            loadComponent: () =>
+              import('./pages/tecnicaturas/sistemas-embebidos/sistemas-emebidos')
+                .then(m => m.SistemasEmbebidosComponent)
+          },
+          {
+            path: 'eficiencia-energetica',
+            loadComponent: () =>
+              import('./pages/tecnicaturas/eficiencia-energetica/eficiencia-energetica')
+                .then(m => m.EficienciaEnergeticaComponent)
+          }
+        ]
+      },
+      { path: 'estudiantes', component: EstudiantesComponent },
+      {
+        path: 'noticias',
+        loadComponent: () => import('./pages/noticias/lista-noticias/lista-noticias').then(c => c.ListaNoticiasComponent)
+      },
+      {
+        path: 'noticias/:id',
+        loadComponent: () => import('./pages/noticias/detalle-noticia/detalle-noticia').then(c => c.DetalleNoticiaComponent)
+      },
+      { path: 'contactanos', component: ContactanosComponent },
+      { path: 'profesores', component: EstudiantesComponent },
+      // { path: 'politica-de-privacidad', component: PoliticaPrivacidad }
     ]
   },
-
-  // 🔹 Panel oculto solo para profesores
   {
-    path: 'panel',
-    component: PanelLayoutComponent,
+    path: 'admin-ifts14-2024',
+    component: AdminLayoutComponent, // 👈 PANEL IFTS (ruta oculta)
     children: [
-      {
-        path: 'horarios',
-        children: [
-          {
-            path: '',
-            loadComponent: () =>
-              import('./pages/panel/horarios/horarios.component')
-                .then(m => m.HorariosComponent)
-          },
-          {
-            path: 'agregar',
-            loadComponent: () =>
-              import('./pages/panel/horarios/form/horario-form.component')
-                .then(m => m.HorarioFormComponent)
-          },
-          {
-            path: 'editar/:id',
-            loadComponent: () =>
-              import('./pages/panel/horarios/form/horario-form.component')
-                .then(m => m.HorarioFormComponent)
-          }
-        ]
-      },
-      {
-        path: 'novedades',
-        children: [
-          {
-            // ruta lista: solo match cuando la url sea exactamente /panel/novedades
-            path: '',
-            pathMatch: 'full',
-            loadComponent: () =>
-              import('./pages/panel/novedades/novedades.component')
-                .then(m => m.NovedadesComponent)
-          },
-          {
-            path: 'agregar',
-            loadComponent: () =>
-              import('./pages/panel/novedades/form/novedades-form.component')
-                .then(m => m.NovedadFormComponent)
-          },
-          {
-            path: 'editar/:id',
-            loadComponent: () =>
-              import('./pages/panel/novedades/form/novedades-form.component')
-                .then(m => m.NovedadFormComponent)
-          }
-        ]
-      },
-
-      // SOLO UNA REDIRECCIÓN por defecto para /panel
-      {
-        path: '',
-        redirectTo: 'horarios',
-        pathMatch: 'full'
-      }
+      { path: 'novedad', component: NovedadComponent },
+      { path: 'novedad/:id', component: NovedadComponent }, // Edición
+      { path: 'novedades', component: NovedadesComponent },
+      { path: 'borradores', component: BorradorComponent }
     ]
   }
 ];
