@@ -1,1 +1,26 @@
-<p>sidebar works!</p>
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>Panel Admin</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a routerLink="/admin-ifts14" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+            class="nav-item">
+            <span class="label">Panel de Administración</span>
+        </a>
+
+        <a routerLink="/admin-ifts14/novedades" routerLinkActive="active" class="nav-item">
+            <span class="label">Novedades</span>
+        </a>
+
+        <a routerLink="/admin-ifts14/horarios" routerLinkActive="active" class="nav-item">
+            <span class="label">Materias</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="/" class="nav-item exit">
+            <span class="label">Salir</span>
+        </a>
+    </div>
+</aside>
