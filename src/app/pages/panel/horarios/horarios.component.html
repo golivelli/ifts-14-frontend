@@ -1,0 +1,48 @@
+<div class="header">
+  <h1>Edición de Horarios</h1>
+  <button class="btn-agregar" (click)="agregar()">+ Agregar Entrada</button>
+</div>
+
+<div class="filtros">
+  <input
+    type="text"
+    placeholder="Buscar materia o profesor.."
+    [(ngModel)]="filtroTexto"
+    class="input"
+  />
+
+  <select [(ngModel)]="filtroAnio" class="input">
+    <option value="">Filtrar por año</option>
+    <option value="1º">1º</option>
+    <option value="2º">2º</option>
+    <option value="3º">3º</option>
+  </select>
+</div>
+
+<table class="horarios-table">
+  <thead>
+    <tr>
+      <th>Día</th>
+      <th>Franja horaria</th>
+      <th>Año</th>
+      <th>Materia</th>
+      <th>Profesor</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let h of filtrarHorarios()">
+      <td>{{ h.dia }}</td>
+      <td>{{ h.franja }}</td>
+      <td>{{ h.anio }}</td>
+      <td>{{ h.materia }}</td>
+      <td>{{ h.profesor }}</td>
+
+      <td>
+        <button class="btn-editar" (click)="editar(h.id)">Editar</button>
+        <button class="btn-eliminar" (click)="eliminar(h)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

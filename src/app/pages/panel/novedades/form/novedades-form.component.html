@@ -1,0 +1,63 @@
+<div class="form-container">
+  <h2>{{ esModoEdicion ? 'Editar Novedad' : 'Nueva Novedad' }}</h2>
+
+  <!-- TÍTULO -->
+  <div class="form-group">
+    <label>Título *</label>
+    <input type="text" [(ngModel)]="formData.titulo" required>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="form-group">
+    <label>Contenido *</label>
+    <textarea [(ngModel)]="formData.contenido" required></textarea>
+  </div>
+
+  <!-- ESTADO -->
+  <div class="form-group">
+    <label>Estado *</label>
+    <select [(ngModel)]="formData.estado" required>
+      <option value="borrador">Borrador</option>
+      <option value="publicado">Publicado</option>
+      <option value="archivado">Archivado</option>
+    </select>
+  </div>
+
+  <!-- CARRERA -->
+  <div class="form-group">
+    <label>Carrera</label>
+    <select [(ngModel)]="formData.id_carrera">
+      <option value="">General</option>
+      <option value="1">Programación</option>
+      <option value="2">Redes</option>
+      <option value="3">Administración</option>
+    </select>
+  </div>
+
+  <!-- FECHA PUBLICACIÓN -->
+  <div class="form-group">
+    <label>Fecha de Publicación</label>
+    <input type="datetime-local" [(ngModel)]="formData.fecha_publicacion">
+  </div>
+
+  <!-- DESTACADO -->
+  <div class="form-group">
+    <label>Destacado</label>
+    <select [(ngModel)]="formData.destacado">
+      <option value="0">No</option>
+      <option value="1">Sí</option>
+    </select>
+  </div>
+
+  <!-- ARCHIVO -->
+  <div class="form-group">
+    <label>Adjuntar imagen / archivo</label>
+    <input type="file" (change)="onFileChange($event)"
+           accept=".pdf,.jpg,.jpeg,.png">
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-primary" (click)="guardar()">Guardar</button>
+    <button class="btn-secondary" (click)="volver()">Cancelar</button>
+  </div>
+</div>

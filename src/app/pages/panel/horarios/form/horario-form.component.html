@@ -1,0 +1,76 @@
+<div class="container">
+
+  <div class="card">
+
+    <div class="header">
+      <h2>{{ esModoEdicion ? 'Editar Horario' : 'Agregar Horario' }}</h2>
+    </div>
+
+    <form class="form">
+
+      <div class="input-group">
+        <label>Día</label>
+        <select [(ngModel)]="formData.dia" name="dia">
+          <option value="" disabled selected>Seleccionar día</option>
+          <option *ngFor="let d of dias">{{ d }}</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Año</label>
+        <select [(ngModel)]="formData.anio" name="anio">
+          <option value="" disabled selected>Seleccionar año</option>
+          <option *ngFor="let a of anios">{{ a }}</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>Materia</label>
+        <input type="text" [(ngModel)]="formData.materia" name="materia">
+      </div>
+
+      <div class="input-group">
+        <label>Profesor/a</label>
+        <input type="text" [(ngModel)]="formData.profesor" name="profesor">
+      </div>
+
+      <div class="input-group">
+        <label>Aula</label>
+        <input type="text" [(ngModel)]="formData.aula" name="aula">
+      </div>
+
+      <!-- Horario inicio -->
+      <div class="input-group">
+        <label>Horario Inicio</label>
+        <select [(ngModel)]="formData.horaInicio" name="horaInicio">
+          <option value="" disabled selected>Seleccionar horario</option>
+          <option *ngFor="let h of horarios">{{ h }}</option>
+        </select>
+      </div>
+
+      <!-- Horario fin -->
+      <div class="input-group">
+        <label>Horario Fin</label>
+        <select [(ngModel)]="formData.horaFin" name="horaFin">
+          <option value="" disabled selected>Seleccionar horario</option>
+          <option *ngFor="let h of horarios">{{ h }}</option>
+        </select>
+      </div>
+
+      <div class="input-group full">
+        <label>Observaciones</label>
+        <textarea [(ngModel)]="formData.observaciones" name="obs"></textarea>
+      </div>
+
+      <div class="buttons">
+        <button type="button" class="btn cancel" (click)="cancelar()">Cancelar</button>
+        <button type="button" class="btn save" (click)="guardar()">
+          {{ esModoEdicion ? 'Guardar Cambios' : 'Crear Horario' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

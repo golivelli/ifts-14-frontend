@@ -1,0 +1,47 @@
+<div class="header">
+  <h1>Novedades</h1>
+  <button class="btn-agregar" (click)="nuevaNovedad()">+ Agregar Novedad</button>
+</div>
+
+<div class="filtros">
+  <input
+    type="text"
+    placeholder="Buscar por título o creador.."
+    [(ngModel)]="filtroTexto"
+    class="input"
+  />
+
+  <select [(ngModel)]="filtroTipo" class="input">
+    <option value="">Filtrar por tipo</option>
+    <option value="Aviso">Aviso</option>
+    <option value="Anuncio">Anuncio</option>
+    <option value="Actualización">Actualización</option>
+    <option value="Evento">Evento</option>
+  </select>
+</div>
+
+<table class="novedades-table">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Fecha</th>
+      <th>Tipo de novedad</th>
+      <th>Creado por</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let n of filtrarNovedades()">
+      <td>{{ n.titulo }}</td>
+      <td>{{ n.fecha }}</td>
+      <td>{{ n.tipo }}</td>
+      <td>{{ n.creadoPor }}</td>
+
+      <td>
+        <button class="btn-editar" (click)="editar(n.id)">Editar</button>
+        <button class="btn-eliminar" (click)="eliminar(n)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
