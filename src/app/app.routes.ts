@@ -55,7 +55,7 @@ export const routes: Routes = [
       },
       { path: 'contactanos', component: ContactanosComponent },
       { path: 'profesores', component: EstudiantesComponent },
-      { path: 'politica-de-privacidad', component: PoliticaPrivacidad }
+      // { path: 'politica-de-privacidad', component: PoliticaPrivacidad }
     ]
   },
   {
