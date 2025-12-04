@@ -29,7 +29,7 @@ export class NovedadComponent implements OnInit {
     this.form = this.fb.group({
       titulo: ['', Validators.required],
       contenido: ['', Validators.required],
-      id_carrera: [''],
+      id_carrera: ['3'],
       imagen_url: [''],
       estado: ['borrador', Validators.required],
       destacado: [false],

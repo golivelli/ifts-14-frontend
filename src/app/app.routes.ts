@@ -13,6 +13,9 @@ import { BorradorComponent } from './pages/borradores/borradores';
 import { ContactanosComponent } from './pages/contactanos/contactanos';
 import { PoliticaPrivacidad } from './components/pages/politica-privacidad/politica-privacidad';
 
+import { PanelSelectionComponent } from './pages/panel-selection/panel-selection';
+import { HorariosComponent } from './pages/horarios/horarios';
+
 export const routes: Routes = [
   {
     path: '',
@@ -65,13 +68,15 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'admin-ifts14-2024',
+    path: 'admin-ifts14',
     component: AdminLayoutComponent, // 👈 PANEL IFTS (ruta oculta)
     children: [
+      { path: '', component: PanelSelectionComponent },
       { path: 'novedad', component: NovedadComponent },
       { path: 'novedad/:id', component: NovedadComponent }, // Edición
       { path: 'novedades', component: NovedadesComponent },
-      { path: 'borradores', component: BorradorComponent }
+      { path: 'borradores', component: BorradorComponent },
+      { path: 'horarios', component: HorariosComponent }
     ]
   }
 ];

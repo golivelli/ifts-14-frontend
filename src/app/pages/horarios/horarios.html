@@ -1,0 +1,128 @@
+<div class="horarios-container">
+    <div class="header">
+        <h1>Gestión de Horarios</h1>
+        <app-primary-button label="Nueva Materia" (onClick)="openCreateForm()" icon="add"
+            iconPosition="left"></app-primary-button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-section">
+        <div class="filter-group">
+            <label for="filterCarrera">Carrera:</label>
+            <select id="filterCarrera" [(ngModel)]="filterCarrera" (change)="applyFilters()">
+                <option value="">Todas</option>
+                <option value="Sistemas Embebidos e IoT">Sistemas Embebidos e IoT</option>
+                <option value="Eficiencia Energética">Eficiencia Energética</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="filterAnio">Año:</label>
+            <select id="filterAnio" [(ngModel)]="filterAnio" (change)="applyFilters()">
+                <option value="">Todos</option>
+                <option value="1">1° Año</option>
+                <option value="2">2° Año</option>
+                <option value="3">3° Año</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="filterDia">Día:</label>
+            <select id="filterDia" [(ngModel)]="filterDia" (change)="applyFilters()">
+                <option value="">Todos</option>
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miércoles">Miércoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+            </select>
+        </div>
+
+        <button class="btn-clear-filters" (click)="clearFilters()">Limpiar filtros</button>
+    </div>
+
+    <div *ngIf="loading" class="loading">Cargando horarios...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="!loading && !error" class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Carrera</th>
+                    <th>Año/Div</th>
+                    <th>Materia</th>
+                    <th>Día</th>
+                    <th>Horario</th>
+                    <th>Profesor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let h of filteredHorarios">
+                    <td>{{ h.carrera }}</td>
+                    <td>{{ h.anio_division }}</td>
+                    <td>{{ h.materia }}</td>
+                    <td>{{ h.dia }}</td>
+                    <td>{{ h.horario }}</td>
+                    <td>{{ h.profesor }}</td>
+                    <td>
+                        <button class="btn-icon" (click)="openEditForm(h)" title="Editar">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-icon delete" (click)="deleteHorario(h.id)" title="Eliminar">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="filteredHorarios.length === 0">
+                    <td colspan="7" class="no-data">No hay horarios que coincidan con los filtros.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal / Formulario Overlay -->
+    <div class="modal-overlay" *ngIf="showForm">
+        <div class="modal-content">
+            <h2>{{ isEditing ? 'Editar Materia' : 'Nueva Materia' }}</h2>
+            <form (ngSubmit)="saveHorario()">
+                <div class="form-group">
+                    <label>Carrera</label>
+                    <input [(ngModel)]="currentHorario.carrera" name="carrera" required>
+                </div>
+                <div class="form-group">
+                    <label>Año / División</label>
+                    <input [(ngModel)]="currentHorario.anio_division" name="anio_division" required
+                        placeholder="Ej: 1° Año - 1° División">
+                </div>
+                <div class="form-group">
+                    <label>Materia</label>
+                    <input [(ngModel)]="currentHorario.materia" name="materia" required>
+                </div>
+                <div class="form-group">
+                    <label>Día</label>
+                    <select [(ngModel)]="currentHorario.dia" name="dia" required>
+                        <option value="Lunes">Lunes</option>
+                        <option value="Martes">Martes</option>
+                        <option value="Miércoles">Miércoles</option>
+                        <option value="Jueves">Jueves</option>
+                        <option value="Viernes">Viernes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Horario</label>
+                    <input [(ngModel)]="currentHorario.horario" name="horario" required placeholder="Ej: 18:00 - 22:15">
+                </div>
+                <div class="form-group">
+                    <label>Profesor</label>
+                    <input [(ngModel)]="currentHorario.profesor" name="profesor" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" (click)="cancelForm()" class="btn-cancel">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

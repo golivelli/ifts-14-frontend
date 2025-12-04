@@ -5,12 +5,11 @@ import { Observable } from 'rxjs';
 export interface Horario {
     id?: number;
     carrera: string;       // Nombre de la carrera
-    anio_division: string; // "1° Año - 1° División"
+    anio_division: string;          // "1° Año - 1° División"
     materia: string;
     dia: string;
     horario: string;       // "18:00 - 22:15"
     profesor: string;
-    aula?: string;
 }
 
 @Injectable({
@@ -32,17 +31,30 @@ export class HorariosService {
     }
 
     /**
-     * Crear nuevo horario
+     * Transformar datos del frontend al formato esperado por el backend
+     */
+    private transformToBackend(horario: Horario): any {
+        return {
+            ...horario,
+            anio: horario.anio_division, // Backend espera 'anio'
+            anio_division: undefined // Eliminar campo del frontend
+        };
+    }
+
+    /**
+     * Crear nueva materia
      */
     createHorario(horario: Horario): Observable<any> {
-        return this.http.post(`${this.apiUrl}/create.php`, horario);
+        const backendData = this.transformToBackend(horario);
+        return this.http.post(`${this.apiUrl}/create.php`, backendData);
     }
 
     /**
      * Actualizar horario existente
      */
     updateHorario(horario: Horario): Observable<any> {
-        return this.http.put(`${this.apiUrl}/update.php`, horario);
+        const backendData = this.transformToBackend(horario);
+        return this.http.put(`${this.apiUrl}/update.php`, backendData);
     }
 
     /**
