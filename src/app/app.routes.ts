@@ -36,7 +36,13 @@ export const routes: Routes = [
       {
         path: 'noticias/:id',
         loadComponent: () => import('./pages/noticias/detalle-noticia/detalle-noticia').then(c => c.DetalleNoticiaComponent)
+      },
+      {
+        path: 'novedades',
+        loadComponent: () =>
+          import('./pages/novedades/novedades').then(m => m.NovedadesComponent)
       }
+
     ]
   },
   {
