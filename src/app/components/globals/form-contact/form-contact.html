@@ -1,0 +1,78 @@
+<form action="" [formGroup]="contactForm"
+  class="border-form p-[24px] rounded-lg shadow-sm bg-[#F5F7FA] flex flex-col gap-[20px] max-w-[810px] h-[auto]">
+  <div class="flex flex-col gap-[4px]">
+    <label class="text-[#2E2E2E] font-medium">Nombre completo <span class="text-[#D01E1E]">*</span></label>
+    <input type="text"
+      class="custom-input w-[380px] h-[32px] rounded-md p-[8px] text-sm border border-[#0F4C81] shadow-xs transition-colors ease-in-out duration-500 placeholder-[#9A9A9A] text-[#191919] focus:outline-none"
+      placeholder="Gerónimo Olivelli" formControlName="fullnameControl"
+      [class.has-error]="name?.invalid && (name?.dirty || name?.touched)">
+    @if (name?.invalid && (name?.dirty || name?.touched)) {
+    <div class="error-msg">
+      @if (name?.hasError('required')) { <span>Campo requerido.</span> }
+      @else if (name?.hasError('minlength')) { <span>Mínimo 5 caracteres.</span> }
+      @else if (name?.hasError('pattern')) { <span>No se permiten números ni símbolos.</span> }
+    </div>
+    }
+  </div>
+  <div class="flex flex-col gap-[4px]">
+    <label class="text-[#2E2E2E] font-medium">Correo <span class="text-[#D01E1E]">*</span></label>
+    <input type="text"
+      class="custom-input w-[380px] h-[32px] rounded-md p-[8px] text-sm border border-[#0F4C81] shadow-xs transition-colors ease-in-out duration-500 placeholder-[#9A9A9A] text-[#191919] focus:outline-none"
+      placeholder="gero.oli@gmail.com" formControlName="emailControl"
+      [class.has-error]="email?.invalid && (email?.dirty || email?.touched)">
+    @if (email?.invalid && (email?.dirty || email?.touched)) {
+    <div class="error-msg">
+      @if (email?.hasError('required')) { <span>Campo requerido.</span> }
+      @else if (email?.hasError('minlength')) { <span>Mínimo 5 caracteres.</span> }
+      @else if (email?.hasError('pattern')) { <span>No se permiten números ni símbolos.</span> }
+    </div>
+    }
+  </div>
+  <div class="flex flex-col gap-[4px]">
+    <label class="text-[#2E2E2E] font-medium">Número de celular (sin 0 y sin 15) <span
+        class="text-[#D01E1E]">*</span></label>
+    <input type="text"
+      class="custom-input w-[380px] h-[32px] rounded-md p-[8px] text-sm border border-[#0F4C81] shadow-xs transition-colors ease-in-out duration-500 placeholder-[#9A9A9A] text-[#191919] focus:outline-none"
+      placeholder="11 5555-1234" formControlName="telControl"
+      [class.has-error]="phone?.invalid && (phone?.dirty || phone?.touched)" (input)="formatPhone($event)">
+    @if (phone?.invalid && (phone?.dirty || phone?.touched)) {
+    <div class="error-msg">
+      @if (phone?.hasError('required')) { <span>Campo requerido.</span> }
+      @else if (phone?.hasError('minlength')) { <span>Mínimo 8 caracteres.</span> }
+    </div>
+    }
+  </div>
+  <div class="flex flex-col gap-[4px]">
+    <label class="text-[#2E2E2E] font-medium">
+      Me interesa la tecnicatura...
+    </label>
+    <div class="relative w-[380px]">
+      <select formControlName="topicControl"
+        class="custom-input w-full h-[32px] rounded-md pl-[8px] pr-[40px] text-sm border border-[#0F4C81] shadow-xs transition-colors ease-in-out duration-500 text-[#191919] focus:outline-none cursor-pointer appearance-none"
+        [class.has-error]="topic?.invalid && (topic?.dirty || topic?.touched)">
+        <option value="one">Sistemas Embebidos e IoT</option>
+        <option value="two">Eficiencia Energética</option>
+        <option value="three">Otra consulta</option>
+      </select>
+      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none bg-[#F9F9F9] rounded-r-sm border border-[#0F4C81]">
+        <svg class="w-4 h-4 text-[#0F4C81]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-[4px]">
+    <!-- <span
+        class="text-[#D01E1E]">*</span> -->
+    <label class="text-[#2E2E2E] font-medium">Consulta</label>
+    <textarea type="text"
+      class="custom-input w-[760px] max-h-[240px] min-h-[44px] h-[44px] rounded-md p-[8px] text-sm border border-[#0F4C81] shadow-xs transition-colors ease-in-out duration-500 placeholder-[#9A9A9A] text-[#191919] focus:outline-none"
+      placeholder="Dejanos tu consulta y te asistiremos pronto." formControlName="comentControl"
+      [class.has-error]="coment?.invalid && (coment?.dirty || coment?.touched)"></textarea>
+    @if (coment?.invalid && (coment?.dirty || coment?.touched)) {
+    <div class="error-msg">
+      @if (coment?.hasError('required')) { <span>Campo requerido.</span> }
+    </div>
+    }
+  </div>
+</form>

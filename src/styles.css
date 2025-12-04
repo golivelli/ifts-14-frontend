@@ -1,63 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* Importar fuente DM Sans desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    body {
-        @apply font-sans text-gray-900 bg-neutral-50;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-heading font-bold;
-    }
-
-    h1 {
-        @apply text-4xl md:text-5xl lg:text-6xl;
-    }
-
-    h2 {
-        @apply text-3xl md:text-4xl lg:text-5xl;
-    }
-
-    h3 {
-        @apply text-2xl md:text-3xl;
-    }
+* {
+  font-family: "DM Sans", sans-serif;
 }
 
-@layer components {
+:root {
+  --color-primary: #EB840F;            
+  --color-primary-hover: #ff9f32;     
+  --color-primary-active: #c76c0c;     
+  --color-primary-disabled: #555555;   
+  --color-on-primary: #E9E9E9;     
+  
+  --color-secondary: #0F4C81;
+  --color-secondary-hover: #1560a8;
+  --color-secondary-active: #0b3863;
+  --color-secondary-disable: #555555;
+  --color-on-secondary: #E9E9E9;
+  --color-outline-secondary: #2E2E2E;
 
-    /* Botón primario con colores oficiales */
-    .btn-primary {
-        @apply bg-accent-500 hover:bg-accent-600 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
-    }
-
-    /* Botón secundario */
-    .btn-secondary {
-        @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300;
-    }
-
-    /* Card moderna */
-    .card {
-        @apply bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl;
-    }
-
-    /* Hero overlay */
-    .hero-overlay {
-        @apply relative overflow-hidden;
-    }
-
-    .hero-overlay::before {
-        content: '';
-        @apply absolute inset-0 bg-gradient-to-r from-primary-900/90 to-primary-800/70 z-10;
-    }
+  --transition-fast: 0.2s ease-in-out;
 }

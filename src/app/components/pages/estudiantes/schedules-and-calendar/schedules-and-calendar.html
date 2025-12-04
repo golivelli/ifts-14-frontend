@@ -1,0 +1,86 @@
+<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden max-w-[1080px] w-[1080px]">
+  <button (click)="toggleSeccion('horarios')"
+    class="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors text-left">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center text-primary-600">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+
+      </div>
+      <h3 class="text-content">Horarios</h3>
+    </div>
+    <span class="text-2xl text-primary-600">{{ seccionActiva() === 'horarios' ? '-' : '+'
+      }}</span>
+  </button>
+  @if (seccionActiva() === 'horarios') {
+  <div class="p-6 border-t border-gray-100 bg-gray-50">
+    <div class="mb-6">
+      <label for="carreraSelect" class="block text-sm font-medium text-gray-700 mb-2">Seleccioná
+        tu carrera:</label>
+      <select id="carreraSelect" (change)="cambiarCarrera($event)"
+        class="w-full md:w-1/2 p-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500">
+        <option value="" class="text-[#2E2E2E]">-- Elegí una carrera --</option>
+        <option value="sistemas">Tecnicatura Superior en Sistemas Embebidos e Internet de las
+          Cosas</option>
+        <option value="eficiencia">Tecnicatura Superior en Eficiencia Energética</option>
+      </select>
+    </div>
+
+    @if (carreraSeleccionada()) {
+    <div>
+      <div class="mb-6">
+        <h4 class="text-lg font-bold text-primary-800">{{ carreraSeleccionada() === 'sistemas' ?
+          'Sistemas Embebidos' : 'Eficiencia Energética' }}</h4>
+        <p class="text-gray-600">2° Cuatrimestre 2025</p>
+      </div>
+
+      <div class="space-y-6">
+        @for (anio of getAniosUnicos(); track anio) {
+        <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <h5 class="font-bold text-primary-700 mb-3 border-b pb-2">{{ anio }}</h5>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Materia</th>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Día</th>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Horario</th>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Profesor</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                @for (horario of getHorariosPorAnio(anio); track $index) {
+                <tr>
+                  <td class="px-3 py-2 text-sm font-medium text-[#2E2E2E]">{{
+                    horario.materia }}</td>
+                  <td class="px-3 py-2 text-sm text-gray-500">{{ horario.dia }}</td>
+                  <td class="px-3 py-2 text-sm text-gray-500">{{ horario.horario }}
+                  </td>
+                  <td class="px-3 py-2 text-sm text-gray-500">{{ horario.profesor }}
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        }
+      </div>
+
+      <div class="mt-6 p-4 bg-blue-50 rounded-lg text-sm text-blue-800">
+        <p><strong>Nota:</strong> Intervalo de 20:00 a 20:15 hs en todos los días.</p>
+      </div>
+    </div>
+    } @else {
+    <div class="text-center py-8 text-gray-500 italic">
+      <p>Por favor, seleccioná tu carrera para ver los horarios correspondientes.</p>
+    </div>
+    }
+  </div>
+  }
+</div>

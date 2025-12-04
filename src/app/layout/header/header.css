@@ -1,0 +1,15 @@
+header {
+  transition: all 400ms ease-in-out;
+
+  &.scrolled {
+    background-color: #0f4c81;
+    box-shadow: 0px 0px 8px 0px rgb(0, 0, 0, 0.5);
+  };
+
+  &.headerDefault {
+    background-color: #0f4c81;
+    a {
+      color:#E9E9E9;
+    }
+  }
+}

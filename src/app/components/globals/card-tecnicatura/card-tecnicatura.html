@@ -1,0 +1,10 @@
+<div class="bg-white flex flex-col justify-between items-center py-[24px] px-[20px] border border-[#DDDDDD] h-[480px] max-w-[330px] max-h-[500px] rounded-xl shadow-sm">
+  <div class="flex flex-col gap-[16px]">
+    <div class="flex flex-row gap-[12px] items-center h-[56px]">
+      <img [src]="iconTecnicatura" [alt]="nameTecnicatura" class="w-[20px] h-[20px]">
+      <p class="text-start text-[#0F4C81] font-semibold text-2xl">{{nameTecnicatura}}</p>
+    </div>
+    <p class="text-start text-[#2E2E2E] font-normal text-base">{{descTecnicatura}}</p>
+  </div>
+  <app-primary-button [routerLink]="routerLink" label="Explorar tecnicatura" icon="arrow_forward" iconPosition="right"></app-primary-button>
+</div>

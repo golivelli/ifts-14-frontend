@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 // Interface basada en la tabla 'posts' de la BD real en cPanel
 export interface Noticia {
   id: number;
-  tipo: 'novedad' | 'noticia';
+  tipo: 'novedad' | 'anuncio';
   titulo: string;
   descripcion: string;
   fecha: string; // Date string YYYY-MM-DD
@@ -14,6 +14,7 @@ export interface Noticia {
   status: 'borrador' | 'publicado';
   file_path?: string;
   creado_en: string;
+  creado_por: string;
   actualizado_en: string;
   // Campos populados via JOIN
   tecnicatura?: {
@@ -36,13 +37,14 @@ export class NoticiasService {
   private noticiasMock: Noticia[] = [
     {
       id: 1,
-      tipo: 'novedad',
+      tipo: 'anuncio',
       titulo: 'Inicio de Inscripciones 2025',
       descripcion: 'Ya están abiertas las inscripciones para el ciclo lectivo 2025. No te pierdas la oportunidad de formarte en nuestras tecnicaturas.',
       fecha: '2025-01-15',
       tecnicatura_id: 1,
       status: 'publicado',
       creado_en: '2025-01-10T10:00:00',
+      creado_por: 'Geronimo Olivelli',
       actualizado_en: '2025-01-10T10:00:00',
       tecnicatura: {
         id: 1,
@@ -51,7 +53,7 @@ export class NoticiasService {
     },
     {
       id: 2,
-      tipo: 'novedad',
+      tipo: 'anuncio',
       titulo: 'Charla Informativa: Sistemas Embebidos e IoT',
       descripcion: 'Te invitamos a participar de una charla informativa sobre la Tecnicatura en Sistemas Embebidos e Internet de las Cosas. Conoce el plan de estudios y las salidas laborales.',
       fecha: '2025-02-01',
@@ -59,6 +61,7 @@ export class NoticiasService {
       tecnicatura_id: 1,
       status: 'publicado',
       creado_en: '2025-01-20T09:00:00',
+      creado_por: 'Mauricio Soto',
       actualizado_en: '2025-01-20T09:00:00',
       tecnicatura: {
         id: 1,
@@ -67,7 +70,7 @@ export class NoticiasService {
     },
     {
       id: 3,
-      tipo: 'novedad',
+      tipo: 'anuncio',
       titulo: 'Jornada de Eficiencia Energética',
       descripcion: 'Charla sobre buenas prácticas de eficiencia en edificios públicos. Presentación de proyectos de estudiantes.',
       fecha: '2025-01-20',
@@ -76,6 +79,7 @@ export class NoticiasService {
       status: 'publicado',
       file_path: 'uploads/jornada-eficiencia.pdf',
       creado_en: '2025-01-15T11:00:00',
+      creado_por: 'Christian Acuña',
       actualizado_en: '2025-01-15T11:00:00',
       tecnicatura: {
         id: 2,
@@ -84,13 +88,48 @@ export class NoticiasService {
     },
     {
       id: 4,
-      tipo: 'noticia',
+      tipo: 'anuncio',
+      titulo: 'Jornada de Sistemas Embebidos e IoT',
+      descripcion: 'Presentación de proyectos de estudiantes.',
+      fecha: '2025-01-20',
+      termina: '2025-01-20T17:00:00',
+      tecnicatura_id: 2,
+      status: 'publicado',
+      file_path: 'uploads/jornada-eficiencia.pdf',
+      creado_en: '2025-01-15T11:00:00',
+      creado_por: 'Christian Acuña',
+      actualizado_en: '2025-01-15T11:00:00',
+      tecnicatura: {
+        id: 2,
+        nombre: 'Tecnicatura Superior en Eficiencia Energética'
+      }
+    },
+    {
+      id: 5,
+      tipo: 'novedad',
       titulo: 'Convenio con Empresas del Sector Tecnológico',
       descripcion: 'El IFTS N°14 firmó convenios con importantes empresas del sector tecnológico para facilitar prácticas profesionales y pasantías para nuestros estudiantes.',
       fecha: '2025-01-10',
       tecnicatura_id: 1,
       status: 'publicado',
       creado_en: '2025-01-08T14:00:00',
+      creado_por: 'Christian Acuña',
+      actualizado_en: '2025-01-08T14:00:00',
+      tecnicatura: {
+        id: 1,
+        nombre: 'Tecnicatura Superior en Sistemas Embebidos e Internet de las Cosas'
+      }
+    },
+    {
+      id: 6,
+      tipo: 'novedad',
+      titulo: 'Convenio con Empresas del Sector Tecnológico',
+      descripcion: 'El IFTS N°14 firmó convenios con importantes empresas del sector tecnológico para facilitar prácticas profesionales y pasantías para nuestros estudiantes.',
+      fecha: '2025-01-10',
+      tecnicatura_id: 1,
+      status: 'publicado',
+      creado_en: '2025-01-08T14:00:00',
+      creado_por: 'Christian Acuña',
       actualizado_en: '2025-01-08T14:00:00',
       tecnicatura: {
         id: 1,
@@ -176,6 +215,7 @@ export class NoticiasService {
         tecnicatura_id: noticia.tecnicatura_id || 1,
         status: noticia.status || 'borrador',
         creado_en: new Date().toISOString(),
+        creado_por: noticia.creado_por || 'IFTS N°. 14',
         actualizado_en: new Date().toISOString()
       };
       this.noticiasMock.push(nuevaNoticia);

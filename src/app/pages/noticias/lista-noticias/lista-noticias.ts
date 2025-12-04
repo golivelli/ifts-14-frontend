@@ -1,27 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { NoticiasService, Noticia } from '../../../services/noticias';
+import { PrimaryButton } from '@/app/components/globals/primary-button/primary-button';
+import { Noticia, NoticiasService } from '@/app/services/noticias';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-noticias',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, PrimaryButton],
   templateUrl: './lista-noticias.html',
   styleUrl: './lista-noticias.css'
 })
 export class ListaNoticiasComponent implements OnInit {
   noticias: Noticia[] = [];
-  filtroTipo: string = 'todas';
   loading = true;
+  activeTab: 'anuncio' | 'novedad' = 'anuncio';
 
-  constructor(public noticiasService: NoticiasService) { }
+  page = 1;
+  pageSize = 9;
+
+  constructor(public noticiasService: NoticiasService) {}
 
   ngOnInit(): void {
     this.cargarNoticias();
   }
 
+  setActiveTab(tab: 'anuncio' | 'novedad') {
+    this.activeTab = tab;
+    this.page = 1;
+  }
+
   cargarNoticias(): void {
     this.loading = true;
+
     this.noticiasService.getNoticias().subscribe({
       next: (noticias) => {
         this.noticias = noticias.filter(n => n.status === 'publicado');
@@ -34,14 +44,18 @@ export class ListaNoticiasComponent implements OnInit {
     });
   }
 
-  filtrarPorTipo(tipo: string): void {
-    this.filtroTipo = tipo;
+  get noticiasFiltradas(): Noticia[] {
+    const filtradas = this.noticias.filter(n => n.tipo === this.activeTab);
+
+    const start = (this.page - 1) * this.pageSize;
+    const end = start + this.pageSize;
+
+    return filtradas.slice(start, end);
   }
 
-  get noticiasFiltradas(): Noticia[] {
-    if (this.filtroTipo === 'todas') {
-      return this.noticias;
-    }
-    return this.noticias.filter(n => n.tipo === this.filtroTipo);
+  get totalPaginas(): number {
+    return Math.ceil(
+      this.noticias.filter(n => n.tipo === this.activeTab).length / this.pageSize
+    );
   }
 }

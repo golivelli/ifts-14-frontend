@@ -1,0 +1,31 @@
+/* Quitar sombras del accordion */
+.mat-expansion-panel {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(233, 233, 233, 0.2);
+}
+
+/* Color del título del panel */
+.mat-expansion-panel-header-title {
+  font-weight: 500;
+  color: #E9E9E9 !important;
+}
+
+/* Color de la descripción (opcional) */
+.mat-expansion-panel-header-description {
+  color: #E9E9E9 !important;
+}
+
+/* Color del contenido interno */
+.mat-expansion-panel-body {
+  color: #E9E9E9 !important;
+}
+
+/* Color del ícono (flecha) */
+.mat-expansion-indicator {
+  border-color: #E9E9E9 !important;
+}
+
+.mat-expanded .mat-expansion-indicator::after {
+  border-color: #E9E9E9 !important;
+}

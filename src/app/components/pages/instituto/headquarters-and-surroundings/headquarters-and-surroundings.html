@@ -1,0 +1,43 @@
+<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden w-[1080px]">
+  <button (click)="toggle()" class="w-full p-6 flex justify-between items-center hover:bg-gray-50">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 2.25l8.25 6V21H3.75V8.25L12 2.25z" />
+        </svg>
+      </div>
+      <h3 class="text-content">Sede y entorno</h3>
+    </div>
+    <span class="text-2xl text-primary-600">{{ open ? '-' : '+' }}</span>
+  </button>
+
+  @if (open) {
+  <div class="flex flex-col gap-[28px] p-6 border-t bg-gray-50">
+
+    <p class="text-[#555555]">
+      Desarrollamos nuestras actividades en un espacio moderno que potencia el aprendizaje técnico y la práctica profesional.
+    </p>
+
+    <div class="flex flex-col gap-[8px]">
+      <h4 class="text-lg font-semibold text-[#2E2E2E]">Nueva infraestructura</h4>
+      <div class="bg-white border p-4 rounded-lg">
+        <p class="text-sm text-[#555555]">
+          Desde 2022 funcionamos en la <a class="hover:text-medium cursor-pointer" href="https://maps.app.goo.gl/ES1RVgpvHHDyLYrb6" target="_blank" rel="noopener noreferrer">Escuela Técnica N.º 11 “Manuel Belgrano”</a>, en Cochabamba 2830, con espacios mejorados y ambientes renovados.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-[8px]">
+      <h4 class="text-lg font-semibold text-[#2E2E2E]">Laboratorios y talleres</h4>
+      <div class="bg-white border p-4 rounded-lg">
+        <p class="text-sm text-[#555555]">
+          Equipamiento para prácticas en electrónica, energía, robótica y sistemas embebidos, asegurando experiencias formativas reales.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  }
+</div>

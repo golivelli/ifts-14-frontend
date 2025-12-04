@@ -1,0 +1,16 @@
+.conteiner-content {
+  background: url('@/assets/bg-heroContactanos.webp') center/cover no-repeat;
+
+  height: 65dvh;
+  position: relative;
+  
+  gap: 12px;
+
+  &::before {
+    content: "";
+    position: absolute; 
+    inset: 0;
+    background: rgba(0, 0, 0, 0.40);
+    z-index: 1;
+  }
+}

@@ -1,0 +1,51 @@
+<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden w-[1080px]">
+  <button (click)="toggle()" class="w-full p-6 flex justify-between items-center hover:bg-gray-50">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+      </div>
+      <h3 class="text-content">Trayectoria y origen</h3>
+    </div>
+    <span class="text-2xl text-primary-600">{{ open ? '-' : '+' }}</span>
+  </button>
+
+  @if (open) {
+  <div class="flex flex-col gap-[28px] p-6 border-t bg-gray-50">
+
+    <p class="text-[#555555]">
+      Con más de tres décadas de evolución, el IFTS 14 consolidó su identidad como institución pública referente en formación técnica superior.
+    </p>
+
+    <!-- Hitos -->
+    <div class="flex flex-col gap-[8px]">
+      <h4 class="text-lg font-semibold text-[#2E2E2E]">Fundación (1989)</h4>
+      <div class="bg-white border p-4 rounded-lg">
+        <p class="text-sm text-[#555555]">
+          Creado por convenio entre el Ministerio de Educación y la APSS para profesionalizar al personal del sector eléctrico.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-[8px]">
+      <h4 class="text-lg font-semibold text-[#2E2E2E]">Transformación (1995–2014)</h4>
+      <div class="bg-white border p-4 rounded-lg">
+        <p class="text-sm text-[#555555]">
+          Procesos de relocalización, reestructuración y actualización académica. Se aprueban nuevos planes de estudio en 2014.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-[8px]">
+      <h4 class="text-lg font-semibold text-[#2E2E2E]">Evolución reciente (2015–Actualidad)</h4>
+      <div class="bg-white border p-4 rounded-lg">
+        <p class="text-sm text-[#555555]">
+          Se incorporan prácticas profesionalizantes, idiomas, y un enfoque en laboratorio. En 2023 inicia la Tecnicatura en Sistemas Embebidos e IoT.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  }
+</div>

@@ -1,6 +1,11 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HorariosService, Horario } from '../../services/horarios.service';
+import { HeroSectionStudents } from '@/app/components/pages/estudiantes/hero-section/hero-section';
+import { AccessSiuAndAulavirtual } from '@/app/components/pages/estudiantes/access-siu-and-aulavirtual/access-siu-and-aulavirtual';
+import { ProceduresAndCertifications } from '@/app/components/pages/estudiantes/procedures-and-certifications/procedures-and-certifications';
+import { SchedulesAndCalendar } from '@/app/components/pages/estudiantes/schedules-and-calendar/schedules-and-calendar';
+import { ScholarshipOpportunities } from '@/app/components/pages/estudiantes/scholarship-opportunities/scholarship-opportunities';
+import { SupportAndGuidance } from '@/app/components/pages/estudiantes/support-and-guidance/support-and-guidance';
 
 interface HorariosMap {
   [key: string]: Horario[];
@@ -9,7 +14,7 @@ interface HorariosMap {
 @Component({
   selector: 'app-estudiantes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [HeroSectionStudents, SchedulesAndCalendar, AccessSiuAndAulavirtual, ProceduresAndCertifications, SupportAndGuidance, ScholarshipOpportunities],
   templateUrl: './estudiantes.html',
   styleUrl: './estudiantes.css'
 })

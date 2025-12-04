@@ -4,13 +4,14 @@ import { WebLayoutComponent } from './layout/web-layout/web-layout';
 
 import { HomeComponent } from './pages/home/home';
 import { InstitutoComponent } from './pages/instituto/instituto';
-import { TecnicaturasComponent } from './pages/tecnicaturas/tecnicaturas';
 import { EstudiantesComponent } from './pages/estudiantes/estudiantes';
 
 import { AdminLayoutComponent } from './layout/panel-layout/panel-layout';
 import { NovedadComponent } from './pages/novedad/novedad';
 import { NovedadesComponent } from './pages/novedades/novedades';
 import { BorradorComponent } from './pages/borradores/borradores';
+import { ContactanosComponent } from './pages/contactanos/contactanos';
+import { PoliticaPrivacidad } from './components/pages/politica-privacidad/politica-privacidad';
 
 export const routes: Routes = [
   {
@@ -18,17 +19,32 @@ export const routes: Routes = [
     component: WebLayoutComponent, // 👈 WEB IFTS
     children: [
       { path: '', component: HomeComponent },
-      {
-        path: 'inicio',
-        loadComponent: () => import('./pages/inicio/inicio').then(c => c.InicioComponent)
-      },
       { path: 'instituto', component: InstitutoComponent },
-      { path: 'tecnicaturas', component: TecnicaturasComponent },
-      { path: 'estudiantes', component: EstudiantesComponent },
       {
-        path: 'carreras',
-        loadComponent: () => import('./pages/carreras/carreras').then(c => c.CarrerasComponent)
+        path: 'tecnicaturas',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/tecnicaturas/tecnicaturas').then(
+                m => m.TecnicaturasComponent
+              )
+          },
+          {
+            path: 'sistemas-embebidos',
+            loadComponent: () =>
+              import('./pages/tecnicaturas/sistemas-embebidos/sistemas-emebidos')
+                .then(m => m.SistemasEmbebidosComponent)
+          },
+          {
+            path: 'eficiencia-energetica',
+            loadComponent: () =>
+              import('./pages/tecnicaturas/eficiencia-energetica/eficiencia-energetica')
+                .then(m => m.EficienciaEnergeticaComponent)
+          }
+        ]
       },
+      { path: 'estudiantes', component: EstudiantesComponent },
       {
         path: 'noticias',
         loadComponent: () => import('./pages/noticias/lista-noticias/lista-noticias').then(c => c.ListaNoticiasComponent)
@@ -36,7 +52,10 @@ export const routes: Routes = [
       {
         path: 'noticias/:id',
         loadComponent: () => import('./pages/noticias/detalle-noticia/detalle-noticia').then(c => c.DetalleNoticiaComponent)
-      }
+      },
+      { path: 'contactanos', component: ContactanosComponent },
+      { path: 'profesores', component: EstudiantesComponent },
+      { path: 'politica-de-privacidad', component: PoliticaPrivacidad }
     ]
   },
   {

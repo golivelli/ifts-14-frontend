@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
+
 import { HeaderComponent } from '../header/header';
 import { FooterComponent } from '../footer/footer';
 
@@ -11,5 +13,23 @@ import { FooterComponent } from '../footer/footer';
   standalone: true
 })
 export class WebLayoutComponent {
+  isHeaderTransparent = false;
 
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        const currentRoute = event.urlAfterRedirects;
+
+        // Rutas donde el header DEBE ser transparente
+        const transparentRoutes = [
+          '/',
+          '/instituto',
+          '/estudiantes',
+          '/contactanos'
+        ];
+
+        this.isHeaderTransparent = transparentRoutes.includes(currentRoute);
+      });
+  }
 }
