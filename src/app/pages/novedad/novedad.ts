@@ -1,105 +1,105 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AnunciosService, Anuncio } from '../../services/anuncios.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AnunciosService } from '../../services/anuncios.service';
+import { Novedad } from '../../models/novedad';
 
 @Component({
-  selector: 'novedad',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './novedad.html',
-  styleUrl: './novedad.css'
+  selector: 'app-novedad',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './novedad.html'
 })
 export class NovedadComponent implements OnInit {
+
   private fb = inject(FormBuilder);
-  private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private anunciosService = inject(AnunciosService);
 
   form!: FormGroup;
+
+  cargando = signal(true);
+  guardando = signal(false);
   anuncioId = signal<number | null>(null);
-  cargando = signal<boolean>(false);
-  guardando = signal<boolean>(false);
 
-  ngOnInit() {
-    this.initForm();
+  ngOnInit(): void {
 
-    // Verificar si estamos editando
+    this.form = this.fb.group({
+      titulo: ['', Validators.required],
+      contenido: ['', Validators.required],
+      id_carrera: [''],
+      imagen_url: [''],
+      estado: ['borrador', Validators.required],
+      destacado: [false],
+      autor: ['']
+    });
+
     this.route.params.subscribe(params => {
       if (params['id']) {
-        this.anuncioId.set(+params['id']);
-        this.cargarAnuncio(+params['id']);
+        const id = Number(params['id']);
+        this.anuncioId.set(id);
+        this.cargarAnuncio(id);
+      } else {
+        this.cargando.set(false);
       }
     });
   }
 
-  initForm() {
-    this.form = this.fb.group({
-      titulo: ['', [Validators.required, Validators.maxLength(255)]],
-      contenido: ['', Validators.required],
-      estado: ['borrador', Validators.required],
-      destacado: [0],
-      autor: ['Admin']
-    });
-  }
-
   cargarAnuncio(id: number) {
-    this.cargando.set(true);
-
     this.anunciosService.getAnuncio(id).subscribe({
-      next: (anuncio) => {
-        this.form.patchValue({
-          titulo: anuncio.titulo,
-          contenido: anuncio.contenido,
-          estado: anuncio.estado,
-          destacado: anuncio.destacado,
-          autor: anuncio.autor
-        });
+      next: (data: Novedad) => {
+        if (data) {
+          this.form.patchValue({
+            titulo: data.titulo,
+            contenido: data.contenido,
+            id_carrera: data.id_carrera,
+            imagen_url: data.imagen_url,
+            estado: data.estado,
+            destacado: data.destacado === 1,
+            autor: data.autor
+          });
+        }
         this.cargando.set(false);
       },
-      error: (error) => {
-        console.error('Error al cargar anuncio:', error);
-        alert('Error al cargar el anuncio');
+      error: () => {
         this.cargando.set(false);
-        this.router.navigate(['/admin-ifts14-2024/novedades']);
       }
     });
   }
 
   guardar() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      alert('Por favor completa todos los campos requeridos');
-      return;
-    }
+    if (this.form.invalid) return;
 
     this.guardando.set(true);
-    const formData = this.form.value;
 
-    // Convertir destacado a número
-    formData.destacado = formData.destacado ? 1 : 0;
+    const payload: Partial<Novedad> = {
+      ...this.form.value,
+      destacado: this.form.value.destacado ? 1 : 0
+    };
 
-    const request = this.anuncioId()
-      ? this.anunciosService.updateAnuncio({ ...formData, id: this.anuncioId()! })
-      : this.anunciosService.createAnuncio(formData);
+    if (this.anuncioId()) {
+      this.anunciosService.actualizarAnuncio(this.anuncioId()!, payload).subscribe({
+        next: () => {
+          this.guardando.set(false);
+          this.router.navigate(['/novedades']);
+        },
+        error: () => this.guardando.set(false)
+      });
 
-    request.subscribe({
-      next: () => {
-        this.guardando.set(false);
-        alert(this.anuncioId() ? 'Anuncio actualizado exitosamente' : 'Anuncio creado exitosamente');
-        this.router.navigate(['/admin-ifts14-2024/novedades']);
-      },
-      error: (error) => {
-        console.error('Error al guardar:', error);
-        this.guardando.set(false);
-        alert('Error al guardar el anuncio');
-      }
-    });
+    } else {
+      this.anunciosService.crearAnuncio(payload).subscribe({
+        next: () => {
+          this.guardando.set(false);
+          this.router.navigate(['/novedades']);
+        },
+        error: () => this.guardando.set(false)
+      });
+    }
   }
 
   cancelar() {
-    if (confirm('¿Descartar cambios?')) {
-      this.router.navigate(['/admin-ifts14-2024/novedades']);
-    }
+    this.router.navigate(['/novedades']);
   }
 }
