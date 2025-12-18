@@ -1,26 +1,37 @@
-<aside class="sidebar">
+<!-- Mobile hamburger button -->
+<button class="hamburger-btn" (click)="toggleSidebar()" aria-label="Toggle menu">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+</button>
+
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay" [class.active]="isOpen()" (click)="closeSidebar()"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" [class.open]="isOpen()">
     <div class="sidebar-header">
         <h2>Panel Admin</h2>
     </div>
 
     <nav class="sidebar-nav">
         <a routerLink="/admin-ifts14" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-            class="nav-item">
+            class="nav-item" (click)="closeSidebar()">
             <span class="label">Panel de Administración</span>
         </a>
 
-        <a routerLink="/admin-ifts14/novedades" routerLinkActive="active" class="nav-item">
+        <a routerLink="/admin-ifts14/novedades" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
             <span class="label">Novedades</span>
         </a>
 
-        <a routerLink="/admin-ifts14/horarios" routerLinkActive="active" class="nav-item">
+        <a routerLink="/admin-ifts14/horarios" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
             <span class="label">Materias</span>
         </a>
     </nav>
 
     <div class="sidebar-footer">
-        <a href="/" class="nav-item exit">
-            <span class="label">Salir</span>
+        <a href="/" class="nav-item exit" (click)="closeSidebar()">
+            <span class="label">Salir al sitio</span>
         </a>
     </div>
 </aside>
