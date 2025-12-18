@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '@/environments/environment';
+import { AnunciosService } from './anuncios.service';
+import { Novedad } from '../models/novedad';
 
 // Interface basada en la tabla 'posts' de la BD real en cPanel
 export interface Noticia {
@@ -27,11 +30,8 @@ export interface Noticia {
   providedIn: 'root'
 })
 export class NoticiasService {
-  // URL del API - Backend en producción
-  private apiUrl = 'https://ifts14.com.ar/api/posts';
-
-  // Para desarrollo, usar datos mock
-  private useMock = true; // Cambiar a false cuando el backend esté listo
+  // Toggle para usar mocks (se controla desde environment)
+  private useMock = environment.useMockNoticias;
 
   // Datos mock basados en la estructura real de cPanel
   private noticiasMock: Noticia[] = [
@@ -138,7 +138,54 @@ export class NoticiasService {
     }
   ];
 
-  constructor(private http: HttpClient) { }
+  constructor(private anunciosService: AnunciosService) { }
+
+  private fetchNoticias(): Observable<Noticia[]> {
+    if (this.useMock) {
+      return of(this.noticiasMock);
+    }
+
+    return this.anunciosService.getAnuncios().pipe(
+      map(anuncios => anuncios
+        .filter(a => !!a)
+        .map(a => this.mapToNoticia(a))
+      ),
+      catchError(error => {
+        console.error('Error al obtener noticias reales:', error);
+        return of(this.noticiasMock);
+      })
+    );
+  }
+
+  private mapToNoticia(anuncio: Novedad): Noticia {
+    const tipo: 'anuncio' | 'novedad' = anuncio.destacado === 1 ? 'anuncio' : 'novedad';
+    return {
+      id: anuncio.id,
+      tipo,
+      titulo: anuncio.titulo,
+      descripcion: anuncio.contenido,
+      fecha: anuncio.fecha_publicacion || anuncio.created_at || '',
+      tecnicatura_id: anuncio.id_carrera ?? 0,
+      status: anuncio.estado === 'archivado' ? 'borrador' : anuncio.estado,
+      file_path: anuncio.imagen_url || undefined,
+      creado_en: anuncio.created_at || anuncio.fecha_publicacion || '',
+      creado_por: anuncio.autor || 'IFTS Nº 14',
+      actualizado_en: anuncio.updated_at || anuncio.fecha_modificacion || anuncio.fecha_publicacion || ''
+    };
+  }
+
+  private mapToAnuncioPayload(noticia: Partial<Noticia>): Partial<Novedad> {
+    return {
+      id: noticia.id,
+      titulo: noticia.titulo || '',
+      contenido: noticia.descripcion || '',
+      estado: noticia.status || 'borrador',
+      destacado: noticia.tipo === 'anuncio' ? 1 : 0,
+      id_carrera: noticia.tecnicatura_id ?? null,
+      imagen_url: noticia.file_path,
+      fecha_publicacion: noticia.fecha
+    };
+  }
 
   // ============================================
   // MÉTODOS PRINCIPALES
@@ -148,20 +195,16 @@ export class NoticiasService {
    * Obtener todas las noticias/novedades
    */
   getNoticias(): Observable<Noticia[]> {
-    if (this.useMock) {
-      return of(this.noticiasMock);
-    }
-    return this.http.get<Noticia[]>(this.apiUrl);
+    return this.fetchNoticias();
   }
 
   /**
    * Obtener solo noticias publicadas
    */
   getNoticiasPublicadas(): Observable<Noticia[]> {
-    if (this.useMock) {
-      return of(this.noticiasMock.filter(n => n.status === 'publicado'));
-    }
-    return this.http.get<Noticia[]>(`${this.apiUrl}?status=publicado`);
+    return this.fetchNoticias().pipe(
+      map(noticias => noticias.filter(n => n.status === 'publicado'))
+    );
   }
 
   /**
@@ -171,30 +214,33 @@ export class NoticiasService {
     const numId = typeof id === 'string' ? parseInt(id, 10) : id;
 
     if (this.useMock) {
-      const noticia = this.noticiasMock.find(n => n.id === numId);
-      return of(noticia);
+      return this.fetchNoticias().pipe(
+        map(noticias => noticias.find(n => n.id === numId))
+      );
     }
-    return this.http.get<Noticia>(`${this.apiUrl}/${numId}`);
+
+    return this.anunciosService.getAnuncio(numId).pipe(
+      map(anuncio => this.mapToNoticia(anuncio)),
+      catchError(() => of(undefined))
+    );
   }
 
   /**
    * Filtrar por tipo (novedad o noticia)
    */
-  getNoticiasPorTipo(tipo: 'novedad' | 'noticia'): Observable<Noticia[]> {
-    if (this.useMock) {
-      return of(this.noticiasMock.filter(n => n.tipo === tipo && n.status === 'publicado'));
-    }
-    return this.http.get<Noticia[]>(`${this.apiUrl}?tipo=${tipo}&status=publicado`);
+  getNoticiasPorTipo(tipo: 'novedad' | 'anuncio'): Observable<Noticia[]> {
+    return this.getNoticiasPublicadas().pipe(
+      map(noticias => noticias.filter(n => n.tipo === tipo))
+    );
   }
 
   /**
    * Filtrar por tecnicatura
    */
   getNoticiasPorTecnicatura(tecnicaturaId: number): Observable<Noticia[]> {
-    if (this.useMock) {
-      return of(this.noticiasMock.filter(n => n.tecnicatura_id === tecnicaturaId && n.status === 'publicado'));
-    }
-    return this.http.get<Noticia[]>(`${this.apiUrl}?tecnicatura_id=${tecnicaturaId}&status=publicado`);
+    return this.getNoticiasPublicadas().pipe(
+      map(noticias => noticias.filter(n => n.tecnicatura_id === tecnicaturaId))
+    );
   }
 
   // ============================================
@@ -204,7 +250,7 @@ export class NoticiasService {
   /**
    * Crear nueva noticia
    */
-  crearNoticia(noticia: Partial<Noticia>): Observable<Noticia> {
+  crearNoticia(noticia: Partial<Noticia>): Observable<any> {
     if (this.useMock) {
       const nuevaNoticia: Noticia = {
         id: this.noticiasMock.length + 1,
@@ -221,13 +267,13 @@ export class NoticiasService {
       this.noticiasMock.push(nuevaNoticia);
       return of(nuevaNoticia);
     }
-    return this.http.post<Noticia>(this.apiUrl, noticia);
+    return this.anunciosService.crearAnuncio(this.mapToAnuncioPayload(noticia));
   }
 
   /**
    * Guardar como borrador
    */
-  guardarBorrador(noticia: Partial<Noticia>): Observable<Noticia> {
+  guardarBorrador(noticia: Partial<Noticia>): Observable<any> {
     const borrador = { ...noticia, status: 'borrador' as const };
     return this.crearNoticia(borrador);
   }
@@ -235,7 +281,7 @@ export class NoticiasService {
   /**
    * Actualizar noticia existente
    */
-  actualizarNoticia(id: number, noticia: Partial<Noticia>): Observable<Noticia> {
+  actualizarNoticia(id: number, noticia: Partial<Noticia>): Observable<any> {
     if (this.useMock) {
       const index = this.noticiasMock.findIndex(n => n.id === id);
       if (index !== -1) {
@@ -248,13 +294,13 @@ export class NoticiasService {
       }
       throw new Error('Noticia no encontrada');
     }
-    return this.http.put<Noticia>(`${this.apiUrl}/${id}`, noticia);
+    return this.anunciosService.actualizarAnuncio(id, this.mapToAnuncioPayload(noticia));
   }
 
   /**
    * Eliminar noticia
    */
-  eliminarNoticia(id: number): Observable<void> {
+  eliminarNoticia(id: number): Observable<any> {
     if (this.useMock) {
       const index = this.noticiasMock.findIndex(n => n.id === id);
       if (index !== -1) {
@@ -262,7 +308,7 @@ export class NoticiasService {
       }
       return of(void 0);
     }
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.anunciosService.eliminarAnuncio(id);
   }
 
   // ============================================

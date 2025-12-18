@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "id_carrera": 1,
+    "titulo": "Inscripciones abiertas 2025",
+    "contenido": "Conocé el paso a paso para inscribirte en nuestras tecnicaturas gratuitas.",
+    "imagen_url": null,
+    "fecha_publicacion": "2025-01-05",
+    "fecha_modificacion": "2025-01-05",
+    "estado": "publicado",
+    "autor": "IFTS Nº 14",
+    "destacado": 1,
+    "created_at": "2025-01-05T10:00:00",
+    "updated_at": "2025-01-05T10:00:00"
+  },
+  {
+    "id": 2,
+    "id_carrera": 2,
+    "titulo": "Charla de Eficiencia Energética",
+    "contenido": "Invitamos a la comunidad a conocer nuestros proyectos sustentables.",
+    "imagen_url": null,
+    "fecha_publicacion": "2025-01-08",
+    "fecha_modificacion": "2025-01-08",
+    "estado": "publicado",
+    "autor": "Coordinación Académica",
+    "destacado": 0,
+    "created_at": "2025-01-08T15:00:00",
+    "updated_at": "2025-01-08T15:00:00"
+  },
+  {
+    "id": 3,
+    "id_carrera": null,
+    "titulo": "Semana de Innovación",
+    "contenido": "Actividades, workshops y muestras para toda la comunidad.",
+    "imagen_url": null,
+    "fecha_publicacion": "2025-01-10",
+    "fecha_modificacion": "2025-01-10",
+    "estado": "borrador",
+    "autor": "Comisión Organizadora",
+    "destacado": 0,
+    "created_at": "2025-01-10T18:00:00",
+    "updated_at": "2025-01-10T18:00:00"
+  }
+]

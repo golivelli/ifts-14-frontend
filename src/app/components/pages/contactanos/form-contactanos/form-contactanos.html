@@ -5,5 +5,13 @@
   </div>
   <app-form-contact></app-form-contact>
   <p class="text-[#555555] max-w-[810px]">Al enviar, aceptas nuestra <span class="hover:underline cursor-pointer font-semibold text-[#555555]" routerLink="/politica-de-privacidad">Política de Privacidad</span> y <span class="hover:underline cursor-pointer font-semibold text-[#555555]" routerLink="/politica-de-privacidad">Términos de Uso</span>. Tus datos son confidenciales y solo se usarán para fines de asesoramiento. </p>
-  <app-primary-button (click)="enviarConsulta()" size="medium" label="Enviar consulta" icon="arrow_forward" iconPosition="right" variant="primary"></app-primary-button>
+  <app-primary-button
+    (onClick)="enviarConsulta()"
+    size="medium"
+    [label]="formContact?.isSubmitting ? 'Enviando...' : 'Enviar consulta'"
+    icon="arrow_forward"
+    iconPosition="right"
+    variant="primary"
+    [disabled]="formContact?.isSubmitting ?? false">
+  </app-primary-button>
 </div>

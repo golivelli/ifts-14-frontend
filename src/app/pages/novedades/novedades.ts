@@ -87,12 +87,17 @@ export class NovedadesComponent implements OnInit {
     });
   }
 
-  // Publicar → estado = publicado
-  publicarAnuncio(id: number) {
-    this.anunciosService.publicarAnuncio(id).subscribe({
+  // Publicar => estado = 'publicado'
+  publicarAnuncio(anuncio: Novedad) {
+    const payload: Partial<Novedad> = {
+      ...anuncio,
+      estado: 'publicado'
+    };
+
+    this.anunciosService.actualizarAnuncio(anuncio.id, payload).subscribe({
       next: () => {
         const lista = [...this.anuncios()];
-        const idx = lista.findIndex(a => a.id === id);
+        const idx = lista.findIndex(a => a.id === anuncio.id);
         if (idx !== -1) {
           lista[idx].estado = 'publicado';
           this.anuncios.set(lista);
@@ -112,3 +117,6 @@ export class NovedadesComponent implements OnInit {
     });
   }
 }
+
+
+

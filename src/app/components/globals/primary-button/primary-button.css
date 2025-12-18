@@ -16,7 +16,7 @@
     outline-offset: 1.5px;
   }
 
-  &--disabled {
+  &.btn--disabled {
     background-color: var(--color-primary-disabled);
     color: #fff;
     cursor: not-allowed;

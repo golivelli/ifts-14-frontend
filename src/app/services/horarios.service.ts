@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '@/environments/environment';
 
 export interface Horario {
     id?: number;
@@ -19,7 +20,7 @@ export class HorariosService {
     private http = inject(HttpClient);
 
     // URL de la API - cambiar según entorno
-    private apiUrl = 'https://www.ifts14.com.ar/api/horarios';
+    private apiUrl = environment.horariosApi;
 
     /**
      * Obtener todos los horarios

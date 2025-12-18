@@ -36,6 +36,10 @@ export class PrimaryButton {
 
   @Input() active: boolean = false;
 
+  /* Navegación opcional */
+  @Input() routerLink?: string | any[];
+  @Input() queryParams?: Record<string, any>;
+
   /* Evento click */
   @Output() onClick = new EventEmitter<Event>();
 

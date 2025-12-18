@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { CardTecnicatura } from '@/app/components/globals/card-tecnicatura/card-tecnicatura';
+import { Router } from '@angular/router';
 
 interface Carrera {
   id: string;
@@ -23,7 +22,7 @@ interface Materia {
 @Component({
   selector: 'app-section-tecnicaturas',
   standalone: true,
-  imports: [CardTecnicatura, RouterLink],
+  imports: [],
   templateUrl: './section-tecnicaturas.html',
   styleUrls: ['./section-tecnicaturas.css'],
 })

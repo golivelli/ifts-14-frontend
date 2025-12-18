@@ -2,13 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { Noticia, NoticiasService } from '@/app/services/noticias';
 import { RouterLink } from '@angular/router';
-import { PrimaryButton } from '../primary-button/primary-button';
 import { CommonModule } from '@angular/common'; // Importante para clases dinámicas si las usas
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [PrimaryButton, MatDividerModule, RouterLink, CommonModule],
+  imports: [MatDividerModule, RouterLink, CommonModule],
   templateUrl: './card.html',
   styleUrl: './card.css'
 })
@@ -72,28 +71,19 @@ export class Card implements OnInit {
   }
 
   prev() {
-    const maxIndex = this.filteredNoticias.length - this.itemsToShow;
-
-    if (this.currentIndex < maxIndex) {
-      this.currentIndex++;
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.updateVisibleNoticias();
     }
-    
-    // if (this.currentIndex > 0) {
-    //   this.currentIndex--;
-    //   this.updateVisibleNoticias();
-    // }
   }
 
   next() {
-    const maxIndex = this.filteredNoticias.length - this.itemsToShow;
+    const maxIndex = Math.max(0, this.filteredNoticias.length - this.itemsToShow);
 
     if (this.currentIndex < maxIndex) {
       this.currentIndex++;
+      this.updateVisibleNoticias();
     }
-
-    // if (this.currentIndex + this.itemsToShow < this.allNoticias.length) {
-    //   this.currentIndex++; 
-    //   this.updateVisibleNoticias();
-    // }
   }
 }
+

@@ -15,6 +15,7 @@ import { PoliticaPrivacidad } from './components/pages/politica-privacidad/polit
 
 import { PanelSelectionComponent } from './pages/panel-selection/panel-selection';
 import { HorariosComponent } from './pages/horarios/horarios';
+import { ContactosAdminComponent } from './pages/contactos/contactos';
 
 export const routes: Routes = [
   {
@@ -76,7 +77,8 @@ export const routes: Routes = [
       { path: 'novedad/:id', component: NovedadComponent }, // Edición
       { path: 'novedades', component: NovedadesComponent },
       { path: 'borradores', component: BorradorComponent },
-      { path: 'horarios', component: HorariosComponent }
+      { path: 'horarios', component: HorariosComponent },
+      { path: 'contactos', component: ContactosAdminComponent }
     ]
   }
 ];

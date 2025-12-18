@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 
 import { FormContact } from '@/app/components/globals/form-contact/form-contact';
 import { PrimaryButton } from '@/app/components/globals/primary-button/primary-button';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-contactanos',
@@ -11,18 +10,13 @@ import { Router } from '@angular/router';
   styleUrl: './form-contactanos.css',
 })
 export class FormContactanos {
-  @ViewChild(FormContact) formContact!: FormContact;
-
-  constructor(private router: Router) {}
+  @ViewChild(FormContact) formContact?: FormContact;
 
   enviarConsulta() {
+    if (!this.formContact) {
+      return;
+    }
     this.formContact.submit();
-
-    console.log("VALORES DEL FORMULARIO:", this.formContact.contactForm.value);
-
-    // if (this.formContact.contactForm.valid) {
-    //   this.router.navigate(['/contactanos']);
-    // }
   }
 }
 

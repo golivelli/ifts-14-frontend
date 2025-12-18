@@ -1,4 +1,10 @@
-<button [disabled]="disabled" [ngClass]="classes" [class.active]="active" (click)="handleClick($event)">
+<button
+  [disabled]="disabled"
+  [ngClass]="classes"
+  [class.active]="active"
+  [routerLink]="routerLink"
+  [queryParams]="queryParams"
+  (click)="handleClick($event)">
   <!-- Icono a la izquierda -->
   <ng-container *ngIf="icon && iconPosition === 'left'">
     <mat-icon class="btn__icon btn__icon--left" [ngClass]="icon">{{ icon }}</mat-icon>

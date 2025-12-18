@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Novedad } from '../models/novedad';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class AnunciosService {
     private http = inject(HttpClient);
 
     // API BASE (sin barra al final)
-    private apiUrl = 'https://www.ifts14.com.ar/api/anuncios';
+    private apiUrl = environment.anunciosApi;
 
     private jsonHeaders = new HttpHeaders({
         'Content-Type': 'application/json'
