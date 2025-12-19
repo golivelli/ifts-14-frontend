@@ -22,12 +22,7 @@ export class WebLayoutComponent {
         const currentRoute = event.urlAfterRedirects;
 
         // Rutas donde el header DEBE ser transparente
-        const transparentRoutes = [
-          '/',
-          '/instituto',
-          '/estudiantes',
-          '/contactanos'
-        ];
+        const transparentRoutes = ['/'];
 
         this.isHeaderTransparent = transparentRoutes.includes(currentRoute);
       });

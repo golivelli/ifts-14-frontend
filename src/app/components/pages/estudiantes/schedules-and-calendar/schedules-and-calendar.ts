@@ -14,7 +14,7 @@ interface HorariosMap {
 export class SchedulesAndCalendar {
   private horariosService = inject(HorariosService);
 
-  seccionActiva = signal<string>('horarios');
+  seccionActiva = signal<string>('');
   carreraSeleccionada = signal<string>('');
 
   // Almacena los horarios agrupados por año/división
@@ -80,3 +80,4 @@ export class SchedulesAndCalendar {
     return this.horariosAgrupados()[anio] || [];
   }
 }
+

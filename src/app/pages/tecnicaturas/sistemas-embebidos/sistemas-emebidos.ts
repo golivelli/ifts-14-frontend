@@ -83,7 +83,6 @@ export class SistemasEmbebidosComponent {
       { nombre: 'Circuitos eléctricos y electrónicos', horas: 120 },
       { nombre: 'Técnicas de programación', horas: 160 },
       { nombre: 'Electrónica digital y microprocesadores', horas: 160 },
-      { nombre: 'Técnicas de programación', horas: 160 },
       { nombre: 'Desarrollo y testing de software SE', horas: 160 },
       { nombre: 'Protocolos de IoT', horas: 160 },
       { nombre: 'Programación y comunicación en SE', horas: 160 },
@@ -92,7 +91,13 @@ export class SistemasEmbebidosComponent {
     2: [
       { nombre: 'Sistemas operativos en tiempo real', horas: 160 },
       { nombre: 'Ciberseguridad en IoT', horas: 160 },
-      { nombre: 'Desarrollo de aplicaciones vinculadas a BD', horas: 120 }
+      { nombre: 'Gestion de proyectos', horas: 160 },
+      { nombre: 'Desarrollo de aplicaciones vinculadas a base de datos', horas: 160 },
+      { nombre: 'Trabajo, tecnologia y sociedad', horas: 160 },
+      { nombre: 'Comunicacion', horas: 120 },
+      { nombre: 'Diseno de sistemas electronicos y circuitos impresos', horas: 160 },
+      { nombre: 'Estadistica y probabilidades para gestion de datos', horas: 160 },
+      { nombre: 'Desarrollo de aplicaciones para IoT', horas: 160 }
     ],
     3: [
       { nombre: 'Procesamiento de aprendizaje automático', horas: 160 },
@@ -109,6 +114,14 @@ export class SistemasEmbebidosComponent {
   // DESCARGA PDF
   // ---------------------------------------------
   descargarPDF(): void {
-    const url = '/assets/Tecnicatura-Superior-en-Sistemas-Embebidos.pdf';
+    const url = '/assets/pdf/plan-estudio-sistemas.pdf';
+    const link = document.createElement('a');
+    link.href = encodeURI(url);
+    link.download = 'plan-estudio-sistemas.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
+

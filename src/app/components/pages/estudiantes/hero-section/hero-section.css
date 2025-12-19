@@ -1,17 +1,6 @@
 .conteiner-content {
-  background: url('@/assets/bg-hero-estudiantes.webp') center/cover no-repeat;
-
-  height: 65dvh;
+  background: linear-gradient(135deg, #0f4c81 0%, #1b578c 50%, #0f4c81 100%);
+  height: 320px;
   position: relative;
-  
   gap: 12px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.70);
-    backdrop-filter: blur(4px);
-    z-index: 1;
-  }
 }

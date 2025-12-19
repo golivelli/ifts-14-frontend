@@ -1,4 +1,4 @@
-<div class="noticias-page bg-gray-50 min-h-screen py-10 md:py-16 mt-[64px]">
+<div class="noticias-page bg-gray-50 min-h-screen py-10 md:py-16 mt-[88px]">
     <div class="container mx-auto px-4">
       <div class="flex flex-col items-center gap-[20px] mb-[32px]">
         <div class="flex flex-col gap-[4px]">
@@ -6,11 +6,14 @@
           <p class="text-[#555555] text-center">Mantente informado sobre las novedades del IFTS N.° 14</p>
         </div>
 
-        <div class="p-2 w-full max-w-[410px] flex flex-col sm:flex-row gap-[16px] items-center justify-center border border-[#DDDDDD] rounded-2xl">
-          <app-primary-button label="Anuncios Institucionales" variant="outline" tone="secondary"
-            [active]="activeTab === 'anuncio'" (onClick)="setActiveTab('anuncio')"></app-primary-button>
-          <app-primary-button label="Novedades" variant="outline" tone="secondary" [active]="activeTab === 'novedad'"
-            (onClick)="setActiveTab('novedad')"></app-primary-button>
+        <div class="p-2 w-full max-w-[410px] flex flex-col sm:flex-row gap-[12px] items-center justify-center border border-[#DDDDDD] rounded-2xl">
+          <label class="text-sm text-gray-600">Carrera</label>
+          <select class="w-full sm:w-auto px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            [value]="filtroCarrera" (change)="setFiltroCarrera($event)">
+            <option value="todas">Todas</option>
+            <option value="1">Sistemas Embebidos e IoT</option>
+            <option value="2">Eficiencia Energetica</option>
+          </select>
         </div>
       </div>
 
@@ -52,11 +55,7 @@
                 <div class="p-6 flex flex-col justify-around">
                     <div class="flex justify-between items-center gap-2 mb-3">
                       <span class="text-sm text-gray-500">{{ noticiasService.formatearFecha(noticia.fecha) }}</span>
-                      <span class="px-3 py-1 rounded-full text-xs font-semibold"
-                          [class.bg-primary-100]="noticia.tipo === 'novedad'"
-                          [class.text-primary-800]="noticia.tipo === 'novedad'"
-                          [class.bg-orange-100]="noticia.tipo === 'anuncio'"
-                          [class.text-orange-800]="noticia.tipo === 'anuncio'">
+                      <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
                           {{ noticia.tipo | titlecase }}
                       </span>
                     </div>

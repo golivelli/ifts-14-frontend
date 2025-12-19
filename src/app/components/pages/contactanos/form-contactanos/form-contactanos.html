@@ -3,7 +3,7 @@
     <p class="text-content text-shadow-sm">Recibe información sobre el IFTS N.° 14</p>
     <p class="text-[#555555] max-w-[900px] text-center">Completa el formulario y te enviaremos al instante el plan de estudios, el perfil profesional y las fechas de inscripción para la carrera que más te interese. Tu futuro empieza con esta consulta.</p>
   </div>
-  <app-form-contact></app-form-contact>
+  <app-form-contact class="w-full max-w-[960px]"></app-form-contact>
   <p class="text-[#555555] max-w-[810px]">Al enviar, aceptas nuestra <span class="hover:underline cursor-pointer font-semibold text-[#555555]" routerLink="/politica-de-privacidad">Política de Privacidad</span> y <span class="hover:underline cursor-pointer font-semibold text-[#555555]" routerLink="/politica-de-privacidad">Términos de Uso</span>. Tus datos son confidenciales y solo se usarán para fines de asesoramiento. </p>
   <app-primary-button
     (onClick)="enviarConsulta()"
@@ -15,3 +15,4 @@
     [disabled]="formContact?.isSubmitting ?? false">
   </app-primary-button>
 </div>
+

@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PrimaryButton } from '@/app/components/globals/primary-button/primary-button';
 import { Noticia, NoticiasService } from '@/app/services/noticias';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-noticias',
-  imports: [CommonModule, RouterLink, PrimaryButton],
+  imports: [CommonModule, RouterLink],
   templateUrl: './lista-noticias.html',
   styleUrl: './lista-noticias.css'
 })
 export class ListaNoticiasComponent implements OnInit {
   noticias: Noticia[] = [];
   loading = true;
-  activeTab: 'anuncio' | 'novedad' = 'anuncio';
+  filtroCarrera = 'todas';
 
   page = 1;
   pageSize = 9;
@@ -24,8 +23,9 @@ export class ListaNoticiasComponent implements OnInit {
     this.cargarNoticias();
   }
 
-  setActiveTab(tab: 'anuncio' | 'novedad') {
-    this.activeTab = tab;
+  setFiltroCarrera(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    this.filtroCarrera = value;
     this.page = 1;
   }
 
@@ -45,7 +45,9 @@ export class ListaNoticiasComponent implements OnInit {
   }
 
   get noticiasFiltradas(): Noticia[] {
-    const filtradas = this.noticias.filter(n => n.tipo === this.activeTab);
+    const filtradas = this.filtroCarrera === 'todas'
+      ? this.noticias
+      : this.noticias.filter(n => n.tecnicatura_id === Number(this.filtroCarrera));
 
     const start = (this.page - 1) * this.pageSize;
     const end = start + this.pageSize;
@@ -55,7 +57,10 @@ export class ListaNoticiasComponent implements OnInit {
 
   get totalPaginas(): number {
     return Math.ceil(
-      this.noticias.filter(n => n.tipo === this.activeTab).length / this.pageSize
+      (this.filtroCarrera === 'todas'
+        ? this.noticias
+        : this.noticias.filter(n => n.tecnicatura_id === Number(this.filtroCarrera))
+      ).length / this.pageSize
     );
   }
 }

@@ -1,4 +1,3 @@
-import { PrimaryButton } from '@/app/components/globals/primary-button/primary-button';
 import { Component, HostListener, Input } from  '@angular/core';
 import { RouterLink  } from '@angular/router';
 
@@ -6,7 +5,7 @@ import { RouterLink  } from '@angular/router';
   selector: 'app-header',
   templateUrl: './header.html',
   styleUrl: './header.css',
-  imports: [RouterLink, PrimaryButton],
+  imports: [RouterLink],
   standalone: true
 })
 export class HeaderComponent {

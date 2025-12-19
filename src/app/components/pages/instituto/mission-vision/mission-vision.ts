@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './mission-vision.css'
 })
 export class MissionVision {
-  open = true;
+  open = false;
   
   toggle() {
     this.open = !this.open;

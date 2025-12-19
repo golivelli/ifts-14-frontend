@@ -1,6 +1,5 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { HorariosService, Horario } from '../../services/horarios.service';
-import { HeroSectionStudents } from '@/app/components/pages/estudiantes/hero-section/hero-section';
 import { AccessSiuAndAulavirtual } from '@/app/components/pages/estudiantes/access-siu-and-aulavirtual/access-siu-and-aulavirtual';
 import { ProceduresAndCertifications } from '@/app/components/pages/estudiantes/procedures-and-certifications/procedures-and-certifications';
 import { SchedulesAndCalendar } from '@/app/components/pages/estudiantes/schedules-and-calendar/schedules-and-calendar';
@@ -14,14 +13,14 @@ interface HorariosMap {
 @Component({
   selector: 'app-estudiantes',
   standalone: true,
-  imports: [HeroSectionStudents, SchedulesAndCalendar, AccessSiuAndAulavirtual, ProceduresAndCertifications, SupportAndGuidance, ScholarshipOpportunities],
+  imports: [SchedulesAndCalendar, AccessSiuAndAulavirtual, ProceduresAndCertifications, SupportAndGuidance, ScholarshipOpportunities],
   templateUrl: './estudiantes.html',
   styleUrl: './estudiantes.css'
 })
 export class EstudiantesComponent implements OnInit {
   private horariosService = inject(HorariosService);
 
-  seccionActiva = signal<string>('horarios');
+  seccionActiva = signal<string>('');
   carreraSeleccionada = signal<string>('');
 
   // Almacena los horarios agrupados por año/división

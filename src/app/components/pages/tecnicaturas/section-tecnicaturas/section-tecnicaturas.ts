@@ -104,8 +104,8 @@ export class SectionTecnicaturas {
 
   descargarPDF(carreraId: string): void {
     const pdfUrls: { [key: string]: string } = {
-      sistemas: '/assets/pdf/Plan de estudio - Tecnicatura Superior en Sistemas Embebidos e Internet de las Cosas.pdf',
-      eficiencia: '/assets/pdf/Plan de estudio - Tecnicatura Superior en Eficiencia Energetica.pdf'
+      sistemas: '/assets/pdf/plan-estudio-sistemas.pdf',
+      eficiencia: '/assets/pdf/plan-estudio-eficiencia.pdf'
     };
 
     const url = pdfUrls[carreraId];
@@ -120,4 +120,6 @@ export class SectionTecnicaturas {
     document.body.removeChild(link);
   }
 }
+
+
 

@@ -77,27 +77,36 @@ export class EficienciaEnergeticaComponent {
   // ---------------------------------------------
   // PLAN DE ESTUDIOS
   // ---------------------------------------------
-  materias: Record<number, Materia[]> = {
+    materias: Record<number, Materia[]> = {
     1: [
-      { nombre: 'Física', horas: 120 },
-      { nombre: 'Prácticas profesionalizantes I', horas: 120 },
-      { nombre: 'Representación gráfica específica', horas: 160 },
-      { nombre: 'Fuentes de energía', horas: 120 },
-      { nombre: 'Álgebra lineal', horas: 120 }
+      { nombre: 'Fisica', horas: 120 },
+      { nombre: 'Algebra lineal', horas: 120 },
+      { nombre: 'Analisis matematico', horas: 120 },
+      { nombre: 'Ambiente, sociedad y energia', horas: 120 },
+      { nombre: 'Representacion grafica especifica', horas: 120 },
+      { nombre: 'Fuentes de la energia', horas: 120 },
+      { nombre: 'Ingles', horas: 120 },
+      { nombre: 'Practica profesionalizante 1: Aproximacion al campo laboral', horas: 120 }
     ],
     2: [
-      { nombre: 'Evaluación energética de edificios', horas: 120 },
-      { nombre: 'Prácticas profesionalizantes II', horas: 160 },
-      { nombre: 'Sistemas de climatización', horas: 160 },
-      { nombre: 'Instalaciones eléctricas', horas: 120 },
-      { nombre: 'Problemáticas socio económicas de la energía', horas: 120 }
+      { nombre: 'Evaluacion energetica de edificios', horas: 120 },
+      { nombre: 'Sistemas de climatizacion', horas: 120 },
+      { nombre: 'Instalaciones electricas', horas: 120 },
+      { nombre: 'Problematicas socioeconomicas de la energia', horas: 120 },
+      { nombre: 'Diseno y evaluacion de proyectos', horas: 120 },
+      { nombre: 'Electricidad y magnetismo', horas: 120 },
+      { nombre: 'Principio de los circuitos', horas: 120 },
+      { nombre: 'Practica profesionalizante 2: Diagnostico y proyectos', horas: 120 }
     ],
     3: [
       { nombre: 'Instalaciones industriales', horas: 160 },
-      { nombre: 'Inglés técnico', horas: 160 },
-      { nombre: 'Instalaciones aplicadas a energías renovables', horas: 120 },
-      { nombre: 'Gestión energética', horas: 200 },
-      { nombre: 'Prácticas profesionalizantes III', horas: 200 }
+      { nombre: 'Ingles tecnico', horas: 160 },
+      { nombre: 'Instalacion y aplicacion de energias renovables', horas: 120 },
+      { nombre: 'Gestion energetica', horas: 200 },
+      { nombre: 'Sistemas de representacion', horas: 120 },
+      { nombre: 'Termodinamica y maquinas termicas', horas: 120 },
+      { nombre: 'Uso racional de la energia en edificios', horas: 120 },
+      { nombre: 'Practica profesionalizante 3: Auditorias energeticas', horas: 200 }
     ]
   };
 
@@ -109,6 +118,15 @@ export class EficienciaEnergeticaComponent {
   // DESCARGA PDF
   // ---------------------------------------------
   descargarPDF(): void {
-    const url = '/assets/Tecnicatura-Superior-en-Eficiencia-Energética.pdf';
+    const url = '/assets/pdf/plan-estudio-eficiencia.pdf';
+    const link = document.createElement('a');
+    link.href = encodeURI(url);
+    link.download = 'plan-estudio-eficiencia.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
+
+

@@ -48,11 +48,6 @@
 
             <div class="flex justify-between items-start">
                 <h2 class="text-xl font-semibold text-gray-800">{{ anuncio.titulo }}</h2>
-
-                <!-- DESTACADO -->
-                <button class="text-yellow-500 text-2xl leading-none" (click)="toggleDestacado(anuncio)">
-                    {{ anuncio.destacado === 1 ? '⭐' : '☆' }}
-                </button>
             </div>
 
             <p class="text-gray-600 mt-2 line-clamp-3">
@@ -111,5 +106,6 @@
     }
 
 </div>
+
 
 
