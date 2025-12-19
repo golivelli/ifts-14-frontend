@@ -7,7 +7,6 @@
 @if (filteredNoticias.length > 0) {
   <div class="flex items-center w-full gap-4">
 
-    <!-- Flecha izquierda -->
     @if (filteredNoticias.length > 3) {
       <button (click)="prev()" [disabled]="currentIndex === 0"
         class="p-2 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
@@ -18,7 +17,6 @@
       </button>
     }
 
-    <!-- GRID DE NOTICIAS (siempre grid, sin ngClass dinámico) -->
     <div class="grid gap-8 flex-1"
         [ngClass]="{
             'grid-cols-1 md:grid-cols-1 place-items-center': noticiasVisibles.length === 1,
@@ -27,33 +25,38 @@
         }">
 
       @for (noticia of noticiasVisibles; track noticia.id) {
-        <div class="w-[450px] bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
-                <div class="p-6 flex flex-col justify-around">
-                    <div class="flex justify-between items-center gap-2 mb-3">
-                      <span class="text-sm text-gray-500">{{ noticiasService.formatearFecha(noticia.fecha) }}</span>
-                      <span class="px-3 py-1 rounded-full text-xs font-semibold"
-                          [class.bg-primary-100]="noticia.tipo === 'novedad'"
-                          [class.text-primary-800]="noticia.tipo === 'novedad'"
-                          [class.bg-accent-100]="noticia.tipo === 'anuncio'"
-                          [class.text-accent-800]="noticia.tipo === 'anuncio'">
-                          {{ noticia.tipo | titlecase }}
-                      </span>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#2E2E2E] mb-3">{{ noticia.titulo }}</h3>
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{ noticia.descripcion }}</p>
-                    <a [routerLink]="['/noticias', noticia.id]"
-                        class="inline-flex items-center text-primary-600 hover:text-primary-700 font-normal hover:font-semibold transition-all duration-200">
-                        Leer más
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+        <div class="w-full max-w-[450px] bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
+          <div class="p-6 flex flex-col justify-around">
+              <div class="flex justify-between items-center gap-2 mb-3">
+                <span class="text-sm text-gray-500">{{ noticiasService.formatearFecha(noticia.fecha) }}</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                    [class.bg-primary-100]="noticia.tipo === 'novedad'"
+                    [class.text-primary-800]="noticia.tipo === 'novedad'"
+                    [class.bg-accent-100]="noticia.tipo === 'anuncio'"
+                    [class.text-accent-800]="noticia.tipo === 'anuncio'">
+                    {{ noticia.tipo | titlecase }}
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-[#2E2E2E] mb-2">{{ noticia.titulo }}</h3>
+              <p class="text-sm text-gray-500 mb-1" *ngIf="noticia.tecnicatura">
+                {{ noticia.tecnicatura.nombre }}
+              </p>
+              <p class="text-sm text-gray-500 mb-2" *ngIf="noticia.creado_por">
+                Publicado por {{ noticia.creado_por }}
+              </p>
+              <p class="text-gray-600 mb-4 line-clamp-3">{{ noticia.descripcion }}</p>
+              <a [routerLink]="['/noticias', noticia.id]"
+                  class="inline-flex items-center text-primary-600 hover:text-primary-700 font-normal hover:font-semibold transition-all duration-200">
+                  Leer más
+                  <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+              </a>
+          </div>
+        </div>
       }
     </div>
 
-    <!-- Flecha derecha -->
     @if (filteredNoticias.length > 3) {
       <button (click)="next()" [disabled]="currentIndex + itemsToShow >= filteredNoticias.length"
         class="p-2 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">

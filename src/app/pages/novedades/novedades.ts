@@ -89,6 +89,7 @@ export class NovedadesComponent implements OnInit {
 
   // Publicar => estado = 'publicado'
   publicarAnuncio(anuncio: Novedad) {
+    if (!confirm('Publicar este anuncio?')) return;
     const payload: Partial<Novedad> = {
       ...anuncio,
       estado: 'publicado'
@@ -117,6 +118,7 @@ export class NovedadesComponent implements OnInit {
     });
   }
 }
+
 
 
 

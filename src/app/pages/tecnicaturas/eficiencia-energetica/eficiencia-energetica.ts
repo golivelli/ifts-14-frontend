@@ -26,10 +26,9 @@ interface Materia {
   styleUrls: ['./eficiencia-energetica.css']
 })
 export class EficienciaEnergeticaComponent {
-  // ───────────────────────────────────────────────
-  //  DATOS DE LA CARRERA (CORRECTOS)
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // DATOS DE LA CARRERA
+  // ---------------------------------------------
   carreraDetalle: Carrera = {
     id: 'eficiencia',
     icon: 'assets/icons/iconEficienciaEnergetica.png',
@@ -42,7 +41,7 @@ export class EficienciaEnergeticaComponent {
       { titulo: 'Duración', valor: '3 años', icono: 'duration' },
       { titulo: 'Modalidad', valor: 'Presencial', icono: 'modality' },
       { titulo: 'Turno', valor: 'Mañana/Tarde', icono: 'schedule' },
-      { titulo: 'Sede', valor: 'IFTS N° 14 - Cochabamba 2830 (CABA)', icono: 'location' }
+      { titulo: 'Sede', valor: 'IFTS N.° 14 - Cochabamba 2830 (CABA)', icono: 'location' }
     ],
     perfilEgresado: [
       'Realizar diagnósticos y auditorías energéticas',
@@ -60,10 +59,9 @@ export class EficienciaEnergeticaComponent {
     ]
   };
 
-  // ───────────────────────────────────────────────
-  //   ACORDEONES
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // ACORDEONES
+  // ---------------------------------------------
   acordeonesAbiertos = signal<boolean[]>([false, false, false]);
 
   toggleAcordeon(index: number): void {
@@ -76,10 +74,9 @@ export class EficienciaEnergeticaComponent {
     return this.acordeonesAbiertos()[index];
   }
 
-  // ───────────────────────────────────────────────
-  //   PLAN DE ESTUDIOS
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // PLAN DE ESTUDIOS
+  // ---------------------------------------------
   materias: Record<number, Materia[]> = {
     1: [
       { nombre: 'Física', horas: 120 },
@@ -108,10 +105,9 @@ export class EficienciaEnergeticaComponent {
     return this.materias[anio] || [];
   }
 
-  // ───────────────────────────────────────────────
-  //   DESCARGA PDF
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // DESCARGA PDF
+  // ---------------------------------------------
   descargarPDF(): void {
     const url = '/assets/Tecnicatura-Superior-en-Eficiencia-Energética.pdf';
   }

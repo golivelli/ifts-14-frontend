@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,18 +27,20 @@ export class FormContact {
   constructor(private fb: FormBuilder, private contactService: ContactService) {
     this.contactForm = this.fb.group({
       fullnameControl: ['', [
-        Validators.required, 
-        Validators.minLength(5), 
-        Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/)
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(80),
+        Validators.pattern(/^[a-zA-ZÁÉÍÓÚáéíóúÑñÜü\s]+$/)
       ]],
       
       emailControl: ['', [
-        Validators.required, 
-        Validators.email
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(120)
       ]],
       
       telControl: ['', [
-        Validators.required, 
+        Validators.required,
         Validators.pattern(/^[0-9+\-\s]*$/),
         Validators.maxLength(15),
         Validators.minLength(8)
@@ -47,7 +49,9 @@ export class FormContact {
       topicControl: ['three', [Validators.required]],
 
       comentControl: ['', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(500)
       ]]
     });
   }
@@ -94,6 +98,7 @@ export class FormContact {
           });
           this.contactForm.markAsPristine();
           this.contactForm.markAsUntouched();
+          alert('Consulta enviada correctamente.');
         },
         error: (error) => {
           console.error('Error al enviar la consulta de contacto', error);
@@ -122,10 +127,7 @@ export class FormContact {
       value = value.replace(/(\d{2})(\d{4})(\d{1,4})/, "$1 $2-$3");
     }
 
-    // Poner valor formateado en el input
     event.target.value = value;
-
-    // Actualizar formControl
     this.contactForm.get("telControl")?.setValue(value, { emitEvent: false });
   }
 }

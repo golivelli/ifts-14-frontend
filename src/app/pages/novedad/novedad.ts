@@ -25,15 +25,14 @@ export class NovedadComponent implements OnInit {
   anuncioId = signal<number | null>(null);
 
   ngOnInit(): void {
-
     this.form = this.fb.group({
-      titulo: ['', Validators.required],
-      contenido: ['', Validators.required],
-      id_carrera: ['3'],
-      imagen_url: [''],
+      titulo: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      contenido: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
+      id_carrera: ['3', Validators.required],
+      imagen_url: ['', [Validators.maxLength(500)]],
       estado: ['borrador', Validators.required],
       destacado: [false],
-      autor: ['']
+      autor: ['', [Validators.maxLength(100)]]
     });
 
     this.route.params.subscribe(params => {
@@ -83,7 +82,8 @@ export class NovedadComponent implements OnInit {
       this.anunciosService.actualizarAnuncio(this.anuncioId()!, payload).subscribe({
         next: () => {
           this.guardando.set(false);
-          this.router.navigate(['/novedades']);
+          alert('Anuncio actualizado correctamente');
+          this.router.navigate(['/admin-ifts14/novedades']);
         },
         error: () => this.guardando.set(false)
       });
@@ -92,7 +92,8 @@ export class NovedadComponent implements OnInit {
       this.anunciosService.crearAnuncio(payload).subscribe({
         next: () => {
           this.guardando.set(false);
-          this.router.navigate(['/novedades']);
+          alert('Anuncio creado correctamente');
+          this.router.navigate(['/admin-ifts14/novedades']);
         },
         error: () => this.guardando.set(false)
       });
@@ -100,6 +101,6 @@ export class NovedadComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigate(['/novedades']);
+    this.router.navigate(['/admin-ifts14/novedades']);
   }
 }

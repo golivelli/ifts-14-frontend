@@ -1,4 +1,4 @@
-<div class="detalle-noticia bg-gray-50 p-[96px] min-h-[800px]">
+<div class="detalle-noticia bg-gray-50 px-4 py-10 md:p-[96px] min-h-[800px]">
   <div class="container mx-auto px-4 max-w-4xl">
     <!-- Loading -->
     @if (loading) {
@@ -13,12 +13,7 @@
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
       <!-- Header -->
       <div class="relative h-64 md:h-80 w-full overflow-hidden">
-        @if (noticia.file_path) {
-        <img [src]="noticia.file_path" [alt]="noticia.titulo" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-primary-900/60"></div>
-        } @else {
         <div class="w-full h-full bg-gradient-to-r from-primary-700 to-primary-500"></div>
-        }
 
         <div class="absolute inset-0 flex items-center">
           <div class="container mx-auto px-4">
@@ -32,7 +27,7 @@
               <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
                 {{ noticia.titulo }}
               </h1>
-              <div class="flex items-center text-primary-100 space-x-4">
+              <div class="flex items-center text-primary-100 space-x-4 flex-wrap">
                 <div class="flex items-center gap-[6px]">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -49,6 +44,14 @@
                   </svg>
                   <span>{{ noticia.creado_por }}</span>
                 </div>
+                @if (noticia.tecnicatura) {
+                <div class="flex items-center gap-[6px] text-primary-100">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l7.89 5.26a2 2 0 0 0 2.22 0L21 7M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path>
+                  </svg>
+                  <span>{{ noticia.tecnicatura.nombre }}</span>
+                </div>
+                }
               </div>
             </div>
           </div>
@@ -69,6 +72,13 @@
               {{ noticia.tecnicatura.nombre }}
             </span>
           </p>
+        </div>
+        }
+
+        @if (noticia.file_path) {
+        <div class="mt-10 bg-gray-100 rounded-lg p-2">
+          <img [src]="noticia.file_path" [alt]="noticia.titulo"
+            class="w-full max-h-[520px] object-contain rounded-lg shadow-md mx-auto">
         </div>
         }
       </div>

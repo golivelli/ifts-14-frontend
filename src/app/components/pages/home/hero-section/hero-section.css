@@ -60,3 +60,24 @@
   max-width: 500px;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .conteiner-content {
+    gap: 24px;
+    height: 60dvh;
+    max-height: 60dvh;
+    border-bottom-left-radius: 30% 10%;
+    border-bottom-right-radius: 30% 10%;
+  }
+
+  .text-content-1,
+  .text-content-2 {
+    font-size: 34px;
+    text-align: center;
+  }
+
+  .text-content-3 {
+    font-size: 15px;
+    padding: 0 16px;
+  }
+}

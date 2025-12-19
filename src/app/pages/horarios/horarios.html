@@ -88,16 +88,16 @@
             <form (ngSubmit)="saveHorario()">
                 <div class="form-group">
                     <label>Carrera</label>
-                    <input [(ngModel)]="currentHorario.carrera" name="carrera" required>
+                    <input [(ngModel)]="currentHorario.carrera" name="carrera" required maxlength="120">
                 </div>
                 <div class="form-group">
                     <label>Año / División</label>
-                    <input [(ngModel)]="currentHorario.anio_division" name="anio_division" required
+                    <input [(ngModel)]="currentHorario.anio_division" name="anio_division" required maxlength="30"
                         placeholder="Ej: 1° Año - 1° División">
                 </div>
                 <div class="form-group">
                     <label>Materia</label>
-                    <input [(ngModel)]="currentHorario.materia" name="materia" required>
+                    <input [(ngModel)]="currentHorario.materia" name="materia" required maxlength="120">
                 </div>
                 <div class="form-group">
                     <label>Día</label>
@@ -111,11 +111,11 @@
                 </div>
                 <div class="form-group">
                     <label>Horario</label>
-                    <input [(ngModel)]="currentHorario.horario" name="horario" required placeholder="Ej: 18:00 - 22:15">
+                    <input [(ngModel)]="currentHorario.horario" name="horario" required maxlength="30" placeholder="Ej: 18:00 - 22:15">
                 </div>
                 <div class="form-group">
                     <label>Profesor</label>
-                    <input [(ngModel)]="currentHorario.profesor" name="profesor" required>
+                    <input [(ngModel)]="currentHorario.profesor" name="profesor" required maxlength="120">
                 </div>
 
                 <div class="form-actions">

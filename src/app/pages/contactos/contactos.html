@@ -14,8 +14,7 @@
   </div>
 
   <div class="filters">
-    <input
-      type="text"
+    <input type="text" maxlength="80"
       [(ngModel)]="filterTerm"
       (ngModelChange)="applyFilter()"
       placeholder="Buscar por nombre, email o palabra clave">
@@ -38,6 +37,7 @@
             <th>Motivo</th>
             <th>Mensaje</th>
             <th>Fecha</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -49,6 +49,9 @@
               <td>{{ mensaje.motivo }}</td>
               <td class="mensaje">{{ mensaje.mensaje }}</td>
               <td>{{ mensaje.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>
+                <button class="text-red-600 hover:underline" (click)="deleteMessage(mensaje.id)">Eliminar</button>
+              </td>
             </tr>
           }
         </tbody>
@@ -56,3 +59,5 @@
     </div>
   }
 </div>
+
+

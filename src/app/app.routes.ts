@@ -51,8 +51,8 @@ export const routes: Routes = [
       },
       {
         path: 'novedades',
-        loadComponent: () =>
-          import('./pages/novedad/novedad').then(m => m.NovedadComponent)
+        redirectTo: '/admin-ifts14/novedades',
+        pathMatch: 'full'
       },
       { path: 'estudiantes', component: EstudiantesComponent },
       {

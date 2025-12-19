@@ -26,43 +26,42 @@ interface Materia {
   styleUrls: ['./sistemas-emebidos.css']
 })
 export class SistemasEmbebidosComponent {
-// ───────────────────────────────────────────────
-  //  DATOS DE LA CARRERA (CORRECTOS)
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // DATOS DE LA CARRERA
+  // ---------------------------------------------
   carreraDetalle: Carrera = {
     id: 'sistemas',
-      icon: 'assets/icons/iconSistemasEmbebidos.png',
-      nombreCorto: 'Sistemas embebidos e internet de las cosas',
-      nombreCompleto: 'Tecnicatura superior en sistemas embebidos e internet de las cosas',
-      descripcion: 'Formación en desarrollo de sistemas inteligentes conectados y aplicaciones IoT. Programación de microcontroladores, electrónica digital y comunicaciones.',
-      descripcionCompleta: 'La tecnicatura superior en sistemas embebidos e internet de las cosas forma profesionales capacitados para diseñar, desarrollar e implementar sistemas inteligentes conectados. Los estudiantes adquieren competencias en programación de microcontroladores, desarrollo de aplicaciones IoT, electrónica digital y comunicaciones inalámbricas.',
-      info: ['3 años de duración', 'Modalidad Presencial', 'Turno Tarde/Noche'],
-      informacion: [
-        { titulo: 'Duración', valor: '3 años', icono: 'duration' },
-        { titulo: 'Modalidad', valor: 'Presencial', icono: 'modality' },
-        { titulo: 'Turno', valor: 'Tarde/Noche', icono: 'schedule' },
-        { titulo: 'Sede', valor: 'IFTS N° 14 - Cochabamba 2830 (CABA)', icono: 'location' }
-      ],
-      perfilEgresado: [
-        'Diseñar y programar sistemas embebidos',
-        'Desarrollar aplicaciones para Internet de las Cosas',
-        'Implementar soluciones de conectividad y comunicaciones',
-        'Realizar testing y debugging de sistemas electrónicos',
-        'Gestionar proyectos de desarrollo tecnológico'
-      ],
-      requisitos: [
-        'Secundario completo',
-        'Fotocopia de DNI (primera y segunda hoja)',
-        '2 fotos carnet 4x4',
-        'Formulario de inscripción completo'
-      ]
+    icon: 'assets/icons/iconSistemasEmbebidos.png',
+    nombreCorto: 'Sistemas embebidos e internet de las cosas',
+    nombreCompleto: 'Tecnicatura superior en sistemas embebidos e internet de las cosas',
+    descripcion: 'Formación en desarrollo de sistemas inteligentes conectados y aplicaciones IoT. Programación de microcontroladores, electrónica digital y comunicaciones.',
+    descripcionCompleta:
+      'La tecnicatura superior en sistemas embebidos e internet de las cosas forma profesionales capacitados para diseñar, desarrollar e implementar sistemas inteligentes conectados. Los estudiantes adquieren competencias en programación de microcontroladores, desarrollo de aplicaciones IoT, electrónica digital y comunicaciones inalámbricas.',
+    info: ['3 años de duración', 'Modalidad Presencial', 'Turno Tarde/Noche'],
+    informacion: [
+      { titulo: 'Duración', valor: '3 años', icono: 'duration' },
+      { titulo: 'Modalidad', valor: 'Presencial', icono: 'modality' },
+      { titulo: 'Turno', valor: 'Tarde/Noche', icono: 'schedule' },
+      { titulo: 'Sede', valor: 'IFTS N.° 14 - Cochabamba 2830 (CABA)', icono: 'location' }
+    ],
+    perfilEgresado: [
+      'Diseñar y programar sistemas embebidos',
+      'Desarrollar aplicaciones para Internet de las Cosas',
+      'Implementar soluciones de conectividad y comunicaciones',
+      'Realizar testing y debugging de sistemas electrónicos',
+      'Gestionar proyectos de desarrollo tecnológico'
+    ],
+    requisitos: [
+      'Secundario completo',
+      'Fotocopia de DNI (primera y segunda hoja)',
+      '2 fotos carnet 4x4',
+      'Formulario de inscripción completo'
+    ]
   };
 
-  // ───────────────────────────────────────────────
-  //   ACORDEONES
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // ACORDEONES
+  // ---------------------------------------------
   acordeonesAbiertos = signal<boolean[]>([false, false, false]);
 
   toggleAcordeon(index: number): void {
@@ -75,10 +74,9 @@ export class SistemasEmbebidosComponent {
     return this.acordeonesAbiertos()[index];
   }
 
-  // ───────────────────────────────────────────────
-  //   PLAN DE ESTUDIOS
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // PLAN DE ESTUDIOS
+  // ---------------------------------------------
   materias: Record<number, Materia[]> = {
     1: [
       { nombre: 'Desarrollo de sistemas web', horas: 120 },
@@ -107,10 +105,9 @@ export class SistemasEmbebidosComponent {
     return this.materias[anio] || [];
   }
 
-  // ───────────────────────────────────────────────
-  //   DESCARGA PDF
-  // ───────────────────────────────────────────────
-
+  // ---------------------------------------------
+  // DESCARGA PDF
+  // ---------------------------------------------
   descargarPDF(): void {
     const url = '/assets/Tecnicatura-Superior-en-Sistemas-Embebidos.pdf';
   }

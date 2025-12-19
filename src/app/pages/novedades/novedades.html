@@ -8,7 +8,7 @@
     <div class="flex flex-wrap gap-4 items-center mb-6">
 
         <!-- Buscar -->
-        <input type="text" [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)"
+        <input type="text" maxlength="80" [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)"
             placeholder="Buscar anuncios..."
             class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:w-80" />
 
@@ -111,3 +111,5 @@
     }
 
 </div>
+
+

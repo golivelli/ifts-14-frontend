@@ -1,4 +1,4 @@
-<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden w-[1080px]">
+<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden w-full max-w-[760px] min-w-[320px] min-h-[180px] mx-auto">
   <button (click)="toggle()" class="w-full p-6 flex justify-between items-center hover:bg-gray-50">
     <div class="flex items-center gap-4">
       <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center">
@@ -15,13 +15,11 @@
 
   @if (open) {
   <div class="flex flex-col gap-[28px] p-6 border-t bg-gray-50">
-    <p class="text-[#555555]">Gestiona tus trámites de forma rápida y sencilla. Solicita constancias de alumno regular,
-      certificados de exámenes o cualquier otra documentación oficial que necesites.</p>
+    <p class="text-[#555555]">Gestiona tus tramites de forma rapida y sencilla. Solicita constancias de alumno regular,
+      certificados de examenes o cualquier otra documentacion oficial que necesites.</p>
     @for (grupo of constancias; track $index) {
     <div class="flex flex-col gap-[8px]">
-      <!-- Título de cada grupo -->
       <h4 class="text-lg font-semibold text-[#2E2E2E]">{{ grupo.titulo }}</h4>
-      <!-- Cards dentro del grupo -->
       <div class="grid md:grid-cols-2 gap-4">
         @for (card of grupo.items; track $index) {
         <div class="bg-white border p-4 rounded-lg flex items-center justify-between">
@@ -44,3 +42,5 @@
   </div>
   }
 </div>
+
+

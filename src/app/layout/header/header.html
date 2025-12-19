@@ -1,27 +1,27 @@
-<header class="fixed top-0 w-full z-50 " 
+<header class="fixed top-0 w-full z-50 "
   [class.bg-transparent]="isTransparent && !isScrolled"
   [class.bg-[#0F4C81]]="isScrolled || !isTransparent"
   [class.shadow-md]="isScrolled"
   >
-  <nav class="px-[28px] py-[16px] flex flex-row justify-around items-center">
-    <a class="text-3xl text-[#E9E9E9] font-bold cursor-pointer" routerLink="/">IFTS N.°14</a>
-    <ul class="flex flex-row justify-around items-center gap-10">
-      <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
-        <a routerLink="/instituto">Instituto</a>
-      </li>
-      <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
-        <a routerLink="/noticias">
-          Noticias
-        </a>
-      </li>
+  <nav class="px-4 md:px-[28px] py-[12px] md:py-[16px] flex flex-col md:flex-row md:justify-between items-center gap-4">
+    <a class="text-2xl md:text-3xl text-[#E9E9E9] font-bold cursor-pointer" routerLink="/">IFTS N.° 14</a>
+    <ul class="flex flex-wrap justify-center items-center gap-4 md:gap-10">
       <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
         <a routerLink="/">Inicio</a>
+      </li>
+      <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
+        <a routerLink="/instituto">Instituto</a>
       </li>
       <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
         <a routerLink="/tecnicaturas">Tecnicaturas</a>
       </li>
       <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
         <a routerLink="/estudiantes">Estudiantes</a>
+      </li>
+      <li class="text-[#E9E9E9] font-medium hover:font-semibold transition-all duration-200">
+        <a routerLink="/noticias">
+          Noticias
+        </a>
       </li>
     </ul>
     <app-primary-button size="small" label="Contactanos" icon="arrow_forward" iconPosition="right" variant="outline"

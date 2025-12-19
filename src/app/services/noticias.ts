@@ -108,7 +108,7 @@ export class NoticiasService {
       id: 5,
       tipo: 'novedad',
       titulo: 'Convenio con Empresas del Sector Tecnológico',
-      descripcion: 'El IFTS N°14 firmó convenios con importantes empresas del sector tecnológico para facilitar prácticas profesionales y pasantías para nuestros estudiantes.',
+      descripcion: 'El IFTS N.° 14 firmó convenios con importantes empresas del sector tecnológico para facilitar prácticas profesionales y pasantías para nuestros estudiantes.',
       fecha: '2025-01-10',
       tecnicatura_id: 1,
       status: 'publicado',
@@ -124,7 +124,7 @@ export class NoticiasService {
       id: 6,
       tipo: 'novedad',
       titulo: 'Convenio con Empresas del Sector Tecnológico',
-      descripcion: 'El IFTS N°14 firmó convenios con importantes empresas del sector tecnológico para facilitar prácticas profesionales y pasantías para nuestros estudiantes.',
+      descripcion: 'El IFTS N.° 14 firmó convenios con importantes empresas del sector tecnológico para facilitar prácticas profesionales y pasantías para nuestros estudiantes.',
       fecha: '2025-01-10',
       tecnicatura_id: 1,
       status: 'publicado',
@@ -138,7 +138,7 @@ export class NoticiasService {
     }
   ];
 
-  constructor(private anunciosService: AnunciosService) { }
+  constructor(private anunciosService: AnunciosService) {}
 
   private fetchNoticias(): Observable<Noticia[]> {
     if (this.useMock) {
@@ -169,7 +169,7 @@ export class NoticiasService {
       status: anuncio.estado === 'archivado' ? 'borrador' : anuncio.estado,
       file_path: anuncio.imagen_url || undefined,
       creado_en: anuncio.created_at || anuncio.fecha_publicacion || '',
-      creado_por: anuncio.autor || 'IFTS Nº 14',
+      creado_por: anuncio.autor || 'IFTS N.° 14',
       actualizado_en: anuncio.updated_at || anuncio.fecha_modificacion || anuncio.fecha_publicacion || ''
     };
   }
@@ -261,7 +261,7 @@ export class NoticiasService {
         tecnicatura_id: noticia.tecnicatura_id || 1,
         status: noticia.status || 'borrador',
         creado_en: new Date().toISOString(),
-        creado_por: noticia.creado_por || 'IFTS N°. 14',
+        creado_por: noticia.creado_por || 'IFTS N.° 14',
         actualizado_en: new Date().toISOString()
       };
       this.noticiasMock.push(nuevaNoticia);

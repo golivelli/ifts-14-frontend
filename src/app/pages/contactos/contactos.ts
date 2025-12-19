@@ -61,4 +61,15 @@ export class ContactosAdminComponent implements OnInit {
       );
     });
   }
+
+  deleteMessage(id: number): void {
+    if (!confirm('¿Seguro que querés eliminar esta consulta?')) return;
+    this.contactService.deleteContactMessage(id).subscribe({
+      next: () => {
+        this.loadMessages();
+        alert('Consulta eliminada correctamente.');
+      },
+      error: () => alert('No se pudo eliminar la consulta, intentá nuevamente.')
+    });
+  }
 }

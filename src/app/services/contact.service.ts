@@ -30,4 +30,8 @@ export class ContactService {
   getContactMessages(): Observable<ContactMessage[]> {
     return this.http.get<ContactMessage[]>(`${this.contactBaseUrl}/index.php`);
   }
+
+  deleteContactMessage(id: number): Observable<any> {
+    return this.http.delete(`${this.contactBaseUrl}/delete.php?id=${id}`);
+  }
 }

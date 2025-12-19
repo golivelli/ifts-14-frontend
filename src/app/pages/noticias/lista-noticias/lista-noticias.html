@@ -1,12 +1,12 @@
-<div class="noticias-page bg-gray-50 min-h-screen py-16 mt-[64px]">
+<div class="noticias-page bg-gray-50 min-h-screen py-10 md:py-16 mt-[64px]">
     <div class="container mx-auto px-4">
       <div class="flex flex-col items-center gap-[20px] mb-[32px]">
         <div class="flex flex-col gap-[4px]">
           <h1 class="text-content text-shadow-sm text-center">Noticias</h1>
-          <p class="text-[#555555] text-center">Mantente informado sobre las novedades del IFTS N. °14</p>
+          <p class="text-[#555555] text-center">Mantente informado sobre las novedades del IFTS N.° 14</p>
         </div>
 
-        <div class="p-2 w-[410px] flex flex-row gap-[16px] items-center justify-center border border-[#DDDDDD] rounded-2xl">
+        <div class="p-2 w-full max-w-[410px] flex flex-col sm:flex-row gap-[16px] items-center justify-center border border-[#DDDDDD] rounded-2xl">
           <app-primary-button label="Anuncios Institucionales" variant="outline" tone="secondary"
             [active]="activeTab === 'anuncio'" (onClick)="setActiveTab('anuncio')"></app-primary-button>
           <app-primary-button label="Novedades" variant="outline" tone="secondary" [active]="activeTab === 'novedad'"
@@ -14,7 +14,6 @@
         </div>
       </div>
 
-        <!-- Loading -->
         @if (loading) {
         <div class="text-center py-12">
             <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
@@ -22,11 +21,9 @@
         </div>
         }
 
-        <!-- Paginador -->
 <div class="flex justify-end mb-4" *ngIf="!loading && noticiasFiltradas.length > 0">
   <div class="flex items-center gap-2 text-sm">
 
-    <!-- Botón anterior -->
     <button 
       (click)="page = page - 1"
       [disabled]="page === 1"
@@ -34,12 +31,10 @@
       ‹
     </button>
 
-    <!-- Información de página -->
     <span class="text-[#2E2E2E]">
       {{ page }} de {{ totalPaginas }}
     </span>
 
-    <!-- Botón siguiente -->
     <button 
       (click)="page = page + 1"
       [disabled]="page === totalPaginas"
@@ -50,7 +45,6 @@
   </div>
 </div>
 
-        <!-- Grid de Noticias -->
         @if (!loading && noticiasFiltradas.length > 0) {
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             @for (noticia of noticiasFiltradas; track noticia.id) {
@@ -66,7 +60,13 @@
                           {{ noticia.tipo | titlecase }}
                       </span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#2E2E2E] mb-3">{{ noticia.titulo }}</h3>
+                    <h3 class="text-xl font-bold text-[#2E2E2E] mb-2">{{ noticia.titulo }}</h3>
+                    <p class="text-sm text-gray-500 mb-1" *ngIf="noticia.tecnicatura">
+                      {{ noticia.tecnicatura.nombre }}
+                    </p>
+                    <p class="text-sm text-gray-500 mb-2" *ngIf="noticia.creado_por">
+                      Publicado por {{ noticia.creado_por }}
+                    </p>
                     <p class="text-[#2E2E2E] mb-4 line-clamp-3">{{ noticia.descripcion }}</p>
                     <a [routerLink]="['/noticias', noticia.id]"
                         class="inline-flex items-center text-primary-600 hover:text-primary-700 font-normal hover:font-semibold transition-all duration-200">
@@ -81,7 +81,6 @@
         </div>
         }
 
-        <!-- Sin resultados -->
         @if (!loading && noticiasFiltradas.length === 0) {
         <div class="text-center py-12">
             <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

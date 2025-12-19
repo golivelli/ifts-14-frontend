@@ -100,6 +100,7 @@ export class HorariosComponent implements OnInit {
                 next: () => {
                     this.loadHorarios();
                     this.showForm = false;
+                    alert('Horario actualizado');
                 },
                 error: (err) => {
                     console.error('Error updating horario', err);
@@ -111,6 +112,7 @@ export class HorariosComponent implements OnInit {
                 next: () => {
                     this.loadHorarios();
                     this.showForm = false;
+                    alert('Horario creado correctamente');
                 },
                 error: (err) => {
                     console.error('Error creating horario', err);
@@ -122,10 +124,11 @@ export class HorariosComponent implements OnInit {
 
     deleteHorario(id: number | undefined) {
         if (!id) return;
-        if (confirm('¿Estás seguro de eliminar este horario?')) {
+        if (confirm('¿Seguro que querés eliminar este horario?')) {
             this.horariosService.deleteHorario(id).subscribe({
                 next: () => {
                     this.loadHorarios();
+                    alert('Horario eliminado');
                 },
                 error: (err) => {
                     console.error('Error deleting horario', err);

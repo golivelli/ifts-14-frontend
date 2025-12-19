@@ -1,4 +1,4 @@
-<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden w-[1080px]">
+<div class="bg-white border border-[#DDDDDD] rounded-lg shadow-sm overflow-hidden w-full max-w-[760px] min-w-[320px] min-h-[180px] mx-auto">
   <button (click)="toggle()" class="w-full p-6 flex justify-between items-center hover:bg-gray-50">
     <div class="flex items-center gap-4">
       <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center">
@@ -13,36 +13,34 @@
   </button>
   @if (open) {
   <div class="p-6 flex flex-col gap-[18px] border-t bg-gray-50">
-    <p class="text-base text-[#2E2E2E] max-w-[900px]">Explora las opciones de apoyo económico disponibles. Encuentra
-      información detallada sobre requisitos, fechas de postliación y cómo solicitar tu beca.</p>
+    <p class="text-base text-[#2E2E2E] max-w-[900px]">Explora las opciones de apoyo economico disponibles. Encuentra
+      informacion detallada sobre requisitos, fechas de postulacion y como solicitar tu beca.</p>
     <div class="rounded-md flex flex-col border-[#DDDDDD] border">
       <button (click)="toggleBecaProgresar()"
         class="ease-in-out duration-500 transition flex flex-row justify-between gap-[8px] bg-white rounded-md p-6">
-        <p class="text-2xl font-semibold text-[#2E2E2E]">Becas progresar (línea nivel superior)</p>
+        <p class="text-2xl font-semibold text-[#2E2E2E]">Becas Progresar (linea nivel superior)</p>
         <span class="text-2xl text-primary-600">{{ openBecaProgresar ? '-' : '+' }}</span>
       </button>
       @if (openBecaProgresar) {
       <mat-divider style="border-color: #DDDDDD;"></mat-divider>
       <div class="p-6 bg-white text-[#2E2E2E] space-y-6">
-        <!-- Requisitos -->
         <div class="space-y-2">
           <p class="text-xl font-semibold">
             Requisitos <span class="text-[#D01E1E]">*</span>
           </p>
           <ul class="space-y-3 list-disc list-inside">
             <li>Ser argentino/a nativo/a, naturalizado/a o extranjero/a con residencia legal
-              de 2 años en el país y contar con DNI.</li>
-            <li><span class="underline font-medium">Edad</span>: Tener entre 17 y 24 años cumplidos.
-              (Se extiende hasta 30 años para estudiantes avanzados).</li>
-            <li><span class="underline font-medium">Sin límite de edad</span>: Para personas trans,
-              con discapacidad, refugiadas o pertenecientes a pueblos indígenas.</li>
+              de 2 anos en el pais y contar con DNI.</li>
+            <li><span class="underline font-medium">Edad</span>: Tener entre 17 y 24 anos cumplidos.
+              (Se extiende hasta 30 anos para estudiantes avanzados).</li>
+            <li><span class="underline font-medium">Sin limite de edad</span>: Para personas trans,
+              con discapacidad, refugiadas o pertenecientes a pueblos indigenas.</li>
             <li><span class="underline font-medium">Ingresos</span>: La suma de los ingresos del estudiante
               y su grupo familiar no debe superar los 3 SMVM.</li>
-            <li><span class="underline font-medium">Académico</span>: Ser alumno regular de una
-              institución educativa.</li>
+            <li><span class="underline font-medium">Academico</span>: Ser alumno regular de una
+              institucion educativa.</li>
           </ul>
         </div>
-        <!-- Montos -->
         <div class="space-y-2">
           <p class="text-xl font-semibold">Montos o beneficios</p>
           <ul class="space-y-3 list-disc list-inside">
@@ -55,15 +53,13 @@
             Se cobra el 80% mensualmente y el 20% restante al acreditar la regularidad.
           </p>
         </div>
-        <!-- Fechas -->
         <div class="space-y-2">
-          <p class="text-xl font-semibold">Fechas de inscripción</p>
+          <p class="text-xl font-semibold">Fechas de inscripcion</p>
           <ul class="space-y-3 list-disc list-inside">
-            <li><span class="underline font-medium">1ª Convocatoria</span>: Generalmente marzo a abril.</li>
-            <li><span class="underline font-medium">2ª Convocatoria</span>: Generalmente agosto a septiembre.</li>
+            <li><span class="underline font-medium">1ra Convocatoria</span>: Generalmente marzo a abril.</li>
+            <li><span class="underline font-medium">2da Convocatoria</span>: Generalmente agosto a septiembre.</li>
           </ul>
         </div>
-        <!-- Estado -->
         <div class="space-y-2">
           <p class="text-xl font-semibold">Estado</p>
           <p class="ml-1">Cerrada (apertura en Marzo 2026).</p>
@@ -74,35 +70,30 @@
     <div class="rounded-md flex flex-col border-[#DDDDDD] border">
       <button (click)="toggleBecaBelgrano()"
         class="ease-in-out duration-500 transition flex flex-row justify-between gap-[8px] bg-white rounded-md p-6">
-        <p class="text-2xl font-semibold text-[#2E2E2E]">Becas Manuel Belgrano (carreras estratégicas)</p>
+        <p class="text-2xl font-semibold text-[#2E2E2E]">Becas Manuel Belgrano (carreras estrategicas)</p>
         <span class="text-2xl text-primary-600">{{ openBecaBelgrano ? '-' : '+' }}</span>
       </button>
       @if (openBecaBelgrano) {
       <mat-divider style="border-color: #DDDDDD;"></mat-divider>
       <div class="p-6 bg-white text-[#2E2E2E] space-y-6">
-        <!-- Requisitos -->
         <div class="space-y-2">
           <p class="text-xl font-semibold">Requisitos <span class="text-[#D01E1E]">*</span></p>
           <ul class="space-y-3 list-disc list-inside">
             <li>Ser argentino/a nativo/a o naturalizado/a con DNI.</li>
-            <li>Estudiantes de carreras científicas y técnicas
+            <li>Estudiantes de carreras cientificas y tecnicas
               (Sistemas, Alimentos, Ambiente, etc.).</li>
-            <li><span class="font-medium underline">Edad</span>: Hasta 30 años (ingresantes) y hasta 35 años
-              (avanzados).
-              Sin límite para personas con discapacidad.</li>
+            <li><span class="font-medium underline">Edad</span>: Hasta 30 anos (ingresantes) y hasta 35 anos
+              (avanzados). Sin limite para personas con discapacidad.</li>
             <li><span class="underline font-medium">Ingresos</span>: Ingresos del hogar menores a 3 SMVM.</li>
-            <li><span class="underline font-medium">Académico (clave)</span>: Aprobar el 50% de las materias del plan de
-              estudios
-              por año (más exigente que Progresar).</li>
+            <li><span class="underline font-medium">Academico (clave)</span>: Aprobar el 50% de las materias del plan de estudios por ano.</li>
           </ul>
         </div>
-        <!-- Montos -->
         <div class="space-y-2">
           <p class="text-xl font-semibold">Montos o beneficios</p>
           <ul class="space-y-3 list-disc list-inside">
             <li>
-              Equivale a la remuneración neta de dos (2) ayudantías de segunda simple ajustable por paritarias docentes.
-              (Suele rondar entre $80.000 y $100.000+, según los ajustes).
+              Equivale a la remuneracion neta de dos ayudantias de segunda simple ajustable por paritarias docentes.
+              (Suele rondar entre $80.000 y $100.000+, segun los ajustes).
             </li>
             <li>
               <span class="font-medium">Incompatibilidad:</span> No se puede cobrar junto con Progresar (hay que elegir
@@ -114,12 +105,10 @@
             Se cobra el 80% mensualmente y el 20% restante al acreditar la regularidad.
           </p>
         </div>
-        <!-- Fechas -->
         <div class="space-y-2">
-          <p class="text-xl font-semibold">Fechas de inscripción</p>
+          <p class="text-xl font-semibold">Fechas de inscripcion</p>
           <p class="ml-1">Generalmente febrero (renovantes) y marzo (nuevos postulantes).</p>
         </div>
-        <!-- Estado -->
         <div class="space-y-1">
           <p class="text-xl font-semibold">Estado</p>
           <p class="ml-1">Cerrada (apertura en Febrero 2026).</p>
@@ -130,3 +119,5 @@
   </div>
   }
 </div>
+
+
