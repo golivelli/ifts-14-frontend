@@ -64,8 +64,11 @@
 @media (max-width: 768px) {
   .conteiner-content {
     gap: 24px;
-    height: 60dvh;
-    max-height: 60dvh;
+    height: auto;
+    min-height: 60dvh;
+    max-height: none;
+    padding-top: 120px;
+    padding-bottom: 24px;
     border-bottom-left-radius: 30% 10%;
     border-bottom-right-radius: 30% 10%;
   }
