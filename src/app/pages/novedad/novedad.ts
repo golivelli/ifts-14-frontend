@@ -31,7 +31,8 @@ export class NovedadComponent implements OnInit {
       id_carrera: ['3', Validators.required],
       imagen_url: ['', [Validators.maxLength(500)]],
       estado: ['borrador', Validators.required],
-      autor: ['', [Validators.maxLength(100)]]
+      autor: ['', [Validators.maxLength(100)]],
+      destacado: [0, Validators.required]
     });
 
     this.route.params.subscribe(params => {
@@ -55,7 +56,8 @@ export class NovedadComponent implements OnInit {
             id_carrera: data.id_carrera,
             imagen_url: data.imagen_url,
             estado: data.estado,
-            autor: data.autor
+            autor: data.autor,
+            destacado: data.destacado ?? 0
           });
         }
         this.cargando.set(false);
@@ -73,7 +75,7 @@ export class NovedadComponent implements OnInit {
 
     const payload: Partial<Novedad> = {
       ...this.form.value,
-      destacado: 0
+      destacado: Number(this.form.value.destacado ?? 0)
     };
 
     if (this.anuncioId()) {

@@ -13,6 +13,7 @@ export class ListaNoticiasComponent implements OnInit {
   noticias: Noticia[] = [];
   loading = true;
   filtroCarrera = 'todas';
+  filtroTipo: 'anuncio' | 'novedad' = 'novedad';
 
   page = 1;
   pageSize = 9;
@@ -29,12 +30,19 @@ export class ListaNoticiasComponent implements OnInit {
     this.page = 1;
   }
 
+  setFiltroTipo(tipo: 'anuncio' | 'novedad') {
+    this.filtroTipo = tipo;
+    this.page = 1;
+  }
+
   cargarNoticias(): void {
     this.loading = true;
 
     this.noticiasService.getNoticias().subscribe({
       next: (noticias) => {
         this.noticias = noticias.filter(n => n.status === 'publicado');
+        const hasAnuncios = this.noticias.some(n => n.tipo === 'anuncio');
+        this.filtroTipo = hasAnuncios ? 'anuncio' : 'novedad';
         this.loading = false;
       },
       error: (error) => {
@@ -45,9 +53,11 @@ export class ListaNoticiasComponent implements OnInit {
   }
 
   get noticiasFiltradas(): Noticia[] {
-    const filtradas = this.filtroCarrera === 'todas'
-      ? this.noticias
-      : this.noticias.filter(n => n.tecnicatura_id === Number(this.filtroCarrera));
+    let filtradas = this.noticias.filter(n => n.tipo === this.filtroTipo);
+
+    if (this.filtroTipo === 'novedad' && this.filtroCarrera !== 'todas') {
+      filtradas = filtradas.filter(n => n.tecnicatura_id === Number(this.filtroCarrera));
+    }
 
     const start = (this.page - 1) * this.pageSize;
     const end = start + this.pageSize;
@@ -56,11 +66,12 @@ export class ListaNoticiasComponent implements OnInit {
   }
 
   get totalPaginas(): number {
-    return Math.ceil(
-      (this.filtroCarrera === 'todas'
-        ? this.noticias
-        : this.noticias.filter(n => n.tecnicatura_id === Number(this.filtroCarrera))
-      ).length / this.pageSize
-    );
+    let total = this.noticias.filter(n => n.tipo === this.filtroTipo);
+
+    if (this.filtroTipo === 'novedad' && this.filtroCarrera !== 'todas') {
+      total = total.filter(n => n.tecnicatura_id === Number(this.filtroCarrera));
+    }
+
+    return Math.ceil(total.length / this.pageSize);
   }
 }

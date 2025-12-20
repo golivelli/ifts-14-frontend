@@ -65,6 +65,17 @@
             </div>
 
             <div class="mb-6">
+                <label for="destacado" class="block text-sm font-medium text-gray-700 mb-2">
+                    Tipo
+                </label>
+                <select id="destacado" formControlName="destacado"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    <option value="0">Novedad</option>
+                    <option value="1">Anuncio institucional</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
                 <label for="imagen_url" class="block text-sm font-medium text-gray-700 mb-2">
                     URL de Imagen (opcional)
                 </label>
@@ -87,6 +98,19 @@
                 }
             </div>
 
+            <div class="mb-6">
+                <label for="estado" class="block text-sm font-medium text-gray-700 mb-2">
+                    Estado <span class="text-red-500">*</span>
+                </label>
+                <select id="estado" formControlName="estado"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    <option value="borrador">Borrador</option>
+                    <option value="publicado">Publicado</option>
+                    <option value="archivado">Archivado</option>
+                </select>
+            </div>
+
+
             <div class="flex gap-4 justify-end border-t pt-6">
                 <button type="button" (click)="cancelar()"
                     class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
@@ -105,4 +129,3 @@
         }
     </div>
 </div>
-
